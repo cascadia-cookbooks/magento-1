@@ -1,4 +1,3 @@
-
 #
 # Cookbook Name:: magento
 # Recipe:: cli-tools
