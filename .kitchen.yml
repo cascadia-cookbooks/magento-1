@@ -17,4 +17,20 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[cop_magento::default]
+      - recipe[cop_magento::users]
+      - recipe[cop_magento::cli-tools]
+      - recipe[cop_magento::permissions]
+    attributes:
+      magento:
+        directories:
+          test_dir:
+            path:  '/var/test'
+            owner: 'root'
+            group: 'root'
+            mode:  0755
+        files:
+          test_file:
+            path:  '/var/test.file'
+            owner: 'root'
+            group: 'root'
+            mode:  0755
