@@ -14,7 +14,23 @@ describe 'magento::cli-tools' do
             it { should exist }
             it { should be_owned_by 'mage-cli' }
             it { should be_grouped_into 'cli' }
-            it { should be_mode '0755' }
+            it { should be_mode 755 }
         end
     end
+end
+
+describe 'magento::permissions' do
+    describe file('/var/test') do
+        it { should be_directory }
+        it { should be_owned_by 'root' }
+        it { should be_grouped_into 'root' }
+        it { should be_mode 755 }
+    end 
+
+    describe file('/var/test.file') do
+        it { should exist }
+        it { should be_owned_by 'root' }
+        it { should be_grouped_into 'root' }
+        it { should be_mode 755 }
+    end 
 end
