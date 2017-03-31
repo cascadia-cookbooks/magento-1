@@ -1,14 +1,14 @@
 #
 # Cookbook Name:: magento
-# Recipe:: composer
+# Recipe:: composer-prep
 #
 
-cli_user              = node['magento']['users']['cli']['name']
-cli_group             = node['magento']['groups']['cli']['name']
+cli_user                = node['magento']['users']['cli']['name']
+cli_group               = node['magento']['groups']['cli']['name']
 
-composer_home         = node['magento']['directories']['composer_home']['path']
-magento_composer_home = node['magento']['directories']['magento_composer_home']['path']
-magento_path          = node['magento']['directories']['magento']['path']
+composer_home           = node['magento']['directories']['composer_home']['path']
+magento_composer_home   = node['magento']['directories']['magento_composer_home']['path']
+magento_path            = node['magento']['directories']['magento']['path']
 
 template 'Installing composer auth.json' do
     path    "#{composer_home}/auth.json"
