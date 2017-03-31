@@ -16,3 +16,8 @@
 
 # Berks dependencies
 Berksfile.lock
+
+# Data bags and secret
+test/integration/data_bags/*
+!test/integration/data_bags/.gitkeep
+test/integration/data_bag_encrypted_secret_key
