@@ -43,3 +43,26 @@ describe 'magento::robots' do
         it { should be_mode 644 }
     end
 end
+
+describe 'magento::composer' do
+    describe file('/tmp/.composer/auth.json') do
+        it { should exist }
+        it { should be_owned_by 'mage-cli' }
+        it { should be_grouped_into 'cli' }
+        it { should be_mode 644 }
+    end
+
+    describe file('/tmp/composer_home/auth.json') do
+        it { should exist }
+        it { should be_owned_by 'mage-cli' }
+        it { should be_grouped_into 'cli' }
+        it { should be_mode 644 }
+    end
+
+    describe file('/tmp/magento/composer.json') do
+        it { should exist }
+        it { should be_owned_by 'mage-cli' }
+        it { should be_grouped_into 'cli' }
+        it { should be_mode 644 }
+    end
+end
