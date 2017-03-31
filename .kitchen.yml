@@ -21,6 +21,7 @@ suites:
       - recipe[cop_magento::cli-tools]
       - recipe[cop_magento::permissions]
       - recipe[cop_magento::robots]
+      - recipe[cop_magento::composer]
     attributes:
       robots:
         allow: false
@@ -28,6 +29,21 @@ suites:
         directories:
           test_dir:
             path:  '/var/test'
+            owner: 'root'
+            group: 'root'
+            mode:  0755
+          composer_home:
+            path:  '/tmp/.composer'
+            owner: 'root'
+            group: 'root'
+            mode:  0755
+          magento_composer_home:
+            path:  '/tmp/composer_home'
+            owner: 'root'
+            group: 'root'
+            mode:  0755
+          magento:
+            path:  '/tmp/magento'
             owner: 'root'
             group: 'root'
             mode:  0755
