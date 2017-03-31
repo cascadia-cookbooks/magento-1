@@ -1,0 +1,11 @@
+{
+    "http-basic": {
+        "repo.magento.com": {
+            "username": "<%= node[:composer][:repositories]['repo.magento.com'][:username] %>",
+            "password": "<%= node[:composer][:repositories]['repo.magento.com'][:password] %>"
+        }
+    },
+    "github-oauth": {
+        "github.com": "<%= node[:composer][:repositories][:copious_repos][:token] %>"
+    }
+}
