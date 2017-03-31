@@ -3,6 +3,21 @@ require 'spec_helper'
 describe 'magento::default' do
 end
 
+describe 'magento::users' do
+    users = %w(
+        mage-cli
+        www-data
+    )
+
+    users.each do |user|
+        describe user(user) do
+            it { should exist }
+            it { should belong_to_group 'www-data' }
+            it { should have_home_directory "/home/#{user}" }
+        end
+    end
+end
+
 describe 'magento::cli-tools' do
     tools = %w(
         composer
