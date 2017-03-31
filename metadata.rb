@@ -13,4 +13,12 @@ supports 'debian', '>= 7'
 supports 'rhel', '>= 6'
 supports 'centos', '>= 6'
 
-# TODO: depends
+depends 'cop_base'
+depends 'cop_iptables'
+depends 'cop_cron'
+depends 'cop_mysql'
+depends 'cop_varnish'
+depends 'cop_redis'
+depends 'cop_nginx'
+depends 'cop_php'
+depends 'cop_ntp'
