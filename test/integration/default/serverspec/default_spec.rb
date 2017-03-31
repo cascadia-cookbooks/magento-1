@@ -44,7 +44,7 @@ describe 'magento::robots' do
     end
 end
 
-describe 'magento::composer' do
+describe 'magento::composer-prep' do
     describe file('/tmp/.composer/auth.json') do
         it { should exist }
         it { should be_owned_by 'mage-cli' }
