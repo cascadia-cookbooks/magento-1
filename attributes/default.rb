@@ -1,6 +1,6 @@
 # Magento
-default['magento']['version'] = '2.1.4'
-default['magento']['edition'] = 'Community'
+default['magento']['version']          = '2.1.4'
+default['magento']['edition']          = 'Community'
 default['magento']['composer_project'] = 'magento/product-community-edition'
 
 default['magento']['users']['cli']['name']  = 'mage-cli'
