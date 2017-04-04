@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: magento
-# Recipe:: cli-tools
+# Recipe:: permissions
 #
 
 # Directory permissions
