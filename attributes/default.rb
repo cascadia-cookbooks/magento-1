@@ -3,6 +3,9 @@ default['magento']['version']          = '2.1.4'
 default['magento']['edition']          = 'Community'
 default['magento']['composer_project'] = 'magento/product-community-edition'
 
+default['magento']['domain']             = 'www.example.com'
+default['magento']['additional_domains'] = {}
+
 default['magento']['users']['cli']['name']  = 'mage-cli'
 default['magento']['users']['cli']['group'] = 'cli'
 default['magento']['users']['www']['name']  = 'www-data'
