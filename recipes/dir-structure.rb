@@ -12,6 +12,7 @@ www_user           = node['magento']['users']['www']['name']
 www_group          = node['magento']['users']['www']['group']
 
 dirs = %w(
+    releases
     shared
     shared/app
     shared/app/etc
