@@ -3,10 +3,13 @@
 # Recipe:: dir-structure
 #
 
-# Creates directory structure for the /var/www/ docroot
+# Creates directory structure for the docroot
 
 docroot            = node['magento']['docroot']
 additional_domains = node['magento']['additional_domains']
+
+www_user           = node['magento']['users']['www']['name']
+www_group          = node['magento']['users']['www']['group']
 
 dirs = %w(
     shared
@@ -21,8 +24,8 @@ dirs = %w(
 
 # Create structure for default domain
 directory "#{docroot}" do
-    owner     node['magento']['users']['www']['name']
-    group     node['magento']['users']['www']['group']
+    owner     www_user
+    group     www_group
     mode      0755
     recursive true
     action    :create
@@ -30,8 +33,8 @@ end
 
 dirs.each do |dir|
     directory "#{docroot}/#{dir}" do
-        owner     node['magento']['users']['www']['name']
-        group     node['magento']['users']['www']['group']
+        owner     www_user
+        group     www_group
         mode      0755
         recursive true
         action    :create
@@ -41,8 +44,8 @@ end
 # Create structure for any additional domains
 additional_domains.each do |domain|
     directory "/var/www/#{domain}" do
-        owner     node['magento']['users']['www']['name']
-        group     node['magento']['users']['www']['group']
+        owner     www_user
+        group     www_group
         mode      0755
         recursive true
         action    :create
@@ -50,8 +53,8 @@ additional_domains.each do |domain|
 
     dirs.each do |dir|
         directory "/var/www/#{domain}/#{dir}" do
-            owner     node['magento']['users']['www']['name']
-            group     node['magento']['users']['www']['group']
+            owner     www_user
+            group     www_group
             mode      0755
             recursive true
             action    :create
