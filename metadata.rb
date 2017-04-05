@@ -14,6 +14,7 @@ supports 'rhel', '>= 6'
 supports 'centos', '>= 6'
 
 depends 'cop_base'
+depends 'cop_composer'
 depends 'cop_iptables'
 depends 'cop_cron'
 depends 'cop_mysql'
