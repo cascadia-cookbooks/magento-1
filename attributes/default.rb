@@ -6,6 +6,10 @@ default['magento']['composer_project'] = 'magento/product-community-edition'
 default['magento']['domain']             = 'www.example.com'
 default['magento']['additional_domains'] = {}
 
+# Docroot
+default['magento']['docroot'] = "/var/www/#{node['magento']['domain']}"
+
+# Users and groups
 default['magento']['users']['cli']['name']  = 'mage-cli'
 default['magento']['users']['cli']['group'] = 'cli'
 default['magento']['users']['www']['name']  = 'www-data'
@@ -16,17 +20,20 @@ default['magento']['groups']['cli']['members']      = ['mage-cli']
 default['magento']['groups']['www-data']['name']    = 'www-data'
 default['magento']['groups']['www-data']['members'] = ['www-data', 'mage-cli']
 
+# Additional directories and files
 default['magento']['directories'] = {}
 default['magento']['files']       = {}
 
 default['magento']['update_permissions'] = true
 
+# Toolsies
 default['magento']['tools']['magerun']['path']    = '/usr/local/bin/n98-magerun2'
 default['magento']['tools']['magerun']['source']  = 'n98-magerun2.phar'
 default['magento']['tools']['magerun']['owner']   = 'mage-cli'
 default['magento']['tools']['magerun']['group']   = 'cli'
 default['magento']['tools']['magerun']['mode']    = '0755'
 
+# Installation Parameters
 default['magento']['installation']['admin_first']       = 'Admin'
 default['magento']['installation']['admin_last']        = 'User'
 default['magento']['installation']['admin_email']       = 'admin@example.com'
