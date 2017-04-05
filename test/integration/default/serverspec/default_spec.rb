@@ -51,7 +51,7 @@ describe 'magento::permissions' do
 end
 
 describe 'magento::robots' do
-    describe file('/var/www/shared/pub/robots.txt') do
+    describe file('/var/www/www.example.com/shared/pub/robots.txt') do
         it { should exist }
         it { should be_owned_by 'mage-cli' }
         it { should be_grouped_into 'www-data' }
