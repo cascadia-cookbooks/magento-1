@@ -20,15 +20,15 @@ dirs = %w(
 )
 
 # Create structure for default domain
-dirs.each do |dir|
-    directory "/var/www/#{default_domain}" do
-        owner     node['magento']['users']['www']['name']
-        group     node['magento']['users']['www']['group']
-        mode      0755
-        recursive true
-        action    :create
-    end
+directory "/var/www/#{default_domain}" do
+    owner     node['magento']['users']['www']['name']
+    group     node['magento']['users']['www']['group']
+    mode      0755
+    recursive true
+    action    :create
+end
 
+dirs.each do |dir|
     directory "/var/www/#{default_domain}/#{dir}" do
         owner     node['magento']['users']['www']['name']
         group     node['magento']['users']['www']['group']
