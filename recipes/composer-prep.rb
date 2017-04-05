@@ -9,7 +9,7 @@ cli_group   = node['magento']['users']['cli']['group']
 www_user    = node['magento']['users']['www']['name']
 www_group   = node['magento']['users']['www']['group']
 
-docroot     = "/var/www/#{node['magento']['domain']}"
+docroot     = node['magento']['docroot']
 
 # Create directory for cli_user Composer auth.json
 directory "/home/#{cli_user}/.composer" do

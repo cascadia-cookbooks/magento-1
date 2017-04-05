@@ -5,7 +5,7 @@
 
 # Creates directory structure for the /var/www/ docroot
 
-default_domain = node['magento']['domain']
+docroot            = node['magento']['docroot']
 additional_domains = node['magento']['additional_domains']
 
 dirs = %w(
@@ -20,7 +20,7 @@ dirs = %w(
 )
 
 # Create structure for default domain
-directory "/var/www/#{default_domain}" do
+directory "#{docroot}" do
     owner     node['magento']['users']['www']['name']
     group     node['magento']['users']['www']['group']
     mode      0755
@@ -29,7 +29,7 @@ directory "/var/www/#{default_domain}" do
 end
 
 dirs.each do |dir|
-    directory "/var/www/#{default_domain}/#{dir}" do
+    directory "#{docroot}/#{dir}" do
         owner     node['magento']['users']['www']['name']
         group     node['magento']['users']['www']['group']
         mode      0755

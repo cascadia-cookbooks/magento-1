@@ -3,12 +3,12 @@
 # Recipe:: robots
 #
 
-default_domain = node['magento']['domain']
+docroot            = node['magento']['docroot']
 additional_domains = node['magento']['additional_domains']
 
 # Create 'robots.txt' from template
 template 'Creating robots.txt' do
-    path    "/var/www/#{default_domain}/shared/pub/robots.txt"
+    path    "#{docroot}/shared/pub/robots.txt"
     source  'robots/robots.txt.erb'
     owner   node['magento']['users']['www']['name']
     group   node['magento']['users']['www']['group']
