@@ -21,11 +21,6 @@ default['magento']['files']       = {}
 
 default['magento']['update_permissions'] = true
 
-default['magento']['tools']['composer']['path']   = '/usr/local/bin/composer'
-default['magento']['tools']['composer']['source'] = 'composer.phar'
-default['magento']['tools']['composer']['owner']  = 'mage-cli'
-default['magento']['tools']['composer']['group']  = 'cli'
-default['magento']['tools']['composer']['mode']   = '0755'
 default['magento']['tools']['magerun']['path']    = '/usr/local/bin/n98-magerun2'
 default['magento']['tools']['magerun']['source']  = 'n98-magerun2.phar'
 default['magento']['tools']['magerun']['owner']   = 'mage-cli'
@@ -47,6 +42,7 @@ default['magento']['installation']['sample_data']       = false
 
 # Session
 default['magento']['session']['save']                           = 'redis'
+default['magento']['session']['redis']['host']                  = 'localhost'
 default['magento']['session']['redis']['port']                  = '6379'
 default['magento']['session']['redis']['password']              = ''
 default['magento']['session']['redis']['timeout']               = '2.5'
@@ -68,7 +64,7 @@ default['magento']['session']['redis']['max_lifetime']          = '2592000'
 # Cache
 default['magento']['cache']['save']                                          = 'redis'
 default['magento']['cache']['redis']['default']['backend']                   = 'Cm_Cache_Backend_Redis'
-default['magento']['cache']['redis']['default']['server']                    = ''
+default['magento']['cache']['redis']['default']['server']                    = 'localhost'
 default['magento']['cache']['redis']['default']['port']                      = '6379'
 default['magento']['cache']['redis']['default']['persistent']                = ''
 default['magento']['cache']['redis']['default']['database']                  = '1'
@@ -83,7 +79,7 @@ default['magento']['cache']['redis']['default']['compress_threshold']        = '
 default['magento']['cache']['redis']['default']['compression_lib']           = 'gzip'
 default['magento']['cache']['redis']['default']['use_lua']                   = '0'
 default['magento']['cache']['redis']['page_cache']['backend']                = 'Cm_Cache_Backend_Redis'
-default['magento']['cache']['redis']['page_cache']['server']                 = ''
+default['magento']['cache']['redis']['page_cache']['server']                 = 'localhost'
 default['magento']['cache']['redis']['page_cache']['port']                   = '6379'
 default['magento']['cache']['redis']['page_cache']['persistent']             = ''
 default['magento']['cache']['redis']['page_cache']['database']               = '2'
@@ -96,6 +92,7 @@ default['magento']['cache']['redis']['page_cache']['compress_data']          = '
 default['magento']['application']['php_fpm_pool'] = 'www'
 
 default['magento']['mysql']['table_prefix']                            = ''
+default['magento']['mysql']['connection']['default']['host']           = 'localhost'
 default['magento']['mysql']['connection']['default']['model']          = 'mysql4'
 default['magento']['mysql']['connection']['default']['engine']         = 'innodb'
 default['magento']['mysql']['connection']['default']['initStatements'] = 'SET NAMES utf8'
@@ -129,6 +126,8 @@ default['composer']['merge']['replace']     = true
 default['composer']['merge']['merge_dev']   = true
 default['composer']['merge']['merge_extra'] = true
 
+default['composer']['binary']['path']       = '/usr/local/bin/composer'
+
 default['composer']['repositories']['repo.magento.com']['username'] = ''
 default['composer']['repositories']['repo.magento.com']['password'] = ''
-default['composer']['repositories']['copious_repos']['token'] = ''
+default['composer']['repositories']['copious_repos']['token']       = ''
