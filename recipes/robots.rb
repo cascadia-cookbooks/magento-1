@@ -19,7 +19,7 @@ template 'Creating robots.txt' do
 end
 
 additional_domains.each do |domain|
-    template 'Creating additional domain robots.txt' do
+    template "Creating #{domain} robots.txt" do
         path    "/var/www/#{domain}/shared/pub/robots.txt"
         source  'robots/robots.txt.erb'
         owner   node['magento']['users']['www']['name']
