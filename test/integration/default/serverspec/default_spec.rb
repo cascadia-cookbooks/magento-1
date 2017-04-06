@@ -51,7 +51,7 @@ describe 'magento::permissions' do
 end
 
 describe 'magento::robots' do
-    describe file('/var/www/www.example.com/shared/pub/robots.txt') do
+    describe file('/var/www/example.com/shared/pub/robots.txt') do
         it { should exist }
         it { should be_owned_by 'mage-cli' }
         it { should be_grouped_into 'www-data' }
@@ -67,14 +67,14 @@ describe 'magento::composer-prep' do
         it { should be_mode 644 }
     end
 
-    describe file('/var/www/www.example.com/shared/composer/auth.json') do
+    describe file('/var/www/example.com/shared/composer/auth.json') do
         it { should exist }
         it { should be_owned_by 'www-data' }
         it { should be_grouped_into 'www-data' }
         it { should be_mode 644 }
     end
 
-    describe file('/var/www/www.example.com/shared/composer/composer.json') do
+    describe file('/var/www/example.com/shared/composer/composer.json') do
         it { should exist }
         it { should be_owned_by 'www-data' }
         it { should be_grouped_into 'www-data' }

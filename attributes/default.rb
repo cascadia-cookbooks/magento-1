@@ -3,11 +3,12 @@ default['magento']['version']          = '2.1.4'
 default['magento']['edition']          = 'Community'
 default['magento']['composer_project'] = 'magento/product-community-edition'
 
-default['magento']['domain']             = 'www.example.com'
+default['magento']['domain']             = 'example.com'
 default['magento']['additional_domains'] = {}
 
 # Docroot
-default['magento']['docroot'] = "/var/www/#{node['magento']['domain']}"
+default['magento']['docroot']           = "/var/www/#{node['magento']['domain']}"
+default['magento']['installation_path'] = "#{node['magento']['docroot']}/releases/primary/magento"
 
 # Users and groups
 default['magento']['users']['cli']['name']  = 'mage-cli'
