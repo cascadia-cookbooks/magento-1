@@ -51,3 +51,14 @@ template 'Creating composer.json' do
     action  :create
     backup  false
 end
+
+# Generate env.php
+template 'Install env.php' do
+    path    "#{docroot}/shared/app/etc/env.php"
+    source  'magento/env.php.erb'
+    owner   cli_user
+    group   www_group
+    mode    0644
+    action  :create
+    backup  false
+end
