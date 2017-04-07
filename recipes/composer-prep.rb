@@ -3,13 +3,13 @@
 # Recipe:: composer-prep
 #
 
-cli_user    = node['magento']['users']['cli']['name']
-cli_group   = node['magento']['users']['cli']['group']
+cli_user  = node['magento']['users']['cli']['name']
+cli_group = node['magento']['users']['cli']['group']
 
-www_user    = node['magento']['users']['www']['name']
-www_group   = node['magento']['users']['www']['group']
+www_user  = node['magento']['users']['www']['name']
+www_group = node['magento']['users']['www']['group']
 
-docroot     = node['magento']['docroot']
+docroot   = node['magento']['docroot']
 
 # Create directory for cli_user Composer auth.json
 directory "/home/#{cli_user}/.composer" do
