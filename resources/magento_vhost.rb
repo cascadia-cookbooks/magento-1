@@ -20,7 +20,7 @@ action :create do
             :mage_run_code => mage_run_code,
             :mage_run_type => mage_run_type,
         })
-        cookbook 'magento'
+        cookbook 'cop_magento'
         source   "nginx/mage.nginx.vhost.conf.erb"
         owner    'root'
         group    'root'
