@@ -1,26 +1,28 @@
 #
-# Cookbook Name'' magento
-# Recipe'' magento-install
+# Cookbook Name:: magento
+# Recipe:: magento-install
 #
 
-magento_docroot         = node['magento']['docroot']
-magento_path            = node['magento']['directories']['magento']['path']
+docroot                 = node['magento']['docroot']
+magento_path            = node['magento']['installation_path']
 magento_bin             = "#{magento_path}/bin/magento"
-magento_composer_home   = node['magento']['directories']['magento_composer_home']['path']
+magento_composer_home   = "#{magento_path}/var/composer_home"
 
 cli_user                = node['magento']['users']['cli']['name']
-cli_group               = node['magento']['groups']['cli']['name']
+cli_group               = node['magento']['users']['cli']['group']
 www_user                = node['magento']['users']['www']['name']
-www_group               = node['magento']['groups']['www-data']['name']
+www_group               = node['magento']['users']['www']['group']
 
-composer_home           = node['magento']['directories']['composer_home']['path']
+composer_home           = "/home/#{cli_user}/.composer"
 
+# Composer installation flags
 composer_base_flags     = '--no-interaction --no-ansi'
 composer_pref_flags     = '--no-suggest --prefer-dist'
 composer_include_dev    = node.environment != 'development' ? '--no-dev' : ''
 composer_install_flags  = "#{composer_base_flags} #{composer_pref_flags} #{composer_include_dev}"
 composer_update_flags   = "#{composer_base_flags} #{composer_pref_flags} --lock #{composer_include_dev}"
 
+# Magento installation flags
 magento_install_flags = "--base-url=http://#{node['magento']['domain']} \
 --db-host=#{node['magento']['mysql']['connection']['default']['host']} \
 --db-name=#{node['magento']['mysql']['connection']['default']['dbname']} \
@@ -37,17 +39,25 @@ magento_install_flags = "--base-url=http://#{node['magento']['domain']} \
 --backend-frontname=#{node['magento']['installation']['backend_frontname']} \
 --use-rewrites=1"
 
+# Append Magento installation flags
 if node['magento']['installation']['sample_data']
     magento_install_flags = "--use-sample-data #{magento_install_flags}"
 end
 
+# Link shared/composer/composer.json
+link "#{magento_path}/composer.json" do
+    to        "#{docroot}/shared/composer/composer.json"
+    owner     cli_user
+    group     www_group
+    link_type :hard
+end
 
 # Run composer install
 execute 'Composer installing' do
-    command     "composer install #{composer_install_flags}"
+    command     "composer install -vvvv #{composer_install_flags}"
     cwd         magento_path
     user        cli_user
-    group       cli_group
+    group       www_group ########################################
     environment ({
         'COMPOSER_HOME'      => composer_home,
         'COMPOSER_CACHE_DIR' => "#{composer_home}/cache"
@@ -55,7 +65,7 @@ execute 'Composer installing' do
     not_if      { ::File.exist?("#{magento_path}/app/etc/env.php") }
     notifies    :run, 'execute[Change directory permissions]', :immediately
     notifies    :run, 'execute[Change file permissions]', :immediately
-    notifies    :create, "link[#{magento_docroot}]", :immediately
+    notifies    :create, "link[Symlink docroot]", :immediately
     notifies    :run, 'execute[Update magento bin permissions]', :immediately
     notifies    :run, 'execute[Install sample data if desired]', :immediately
     notifies    :run, 'execute[Update composer if sample data]', :immediately
@@ -63,17 +73,38 @@ execute 'Composer installing' do
     notifies    :run, 'execute[Remove sample files]', :delayed
 end
 
-link magento_docroot do
-    to "#{magento_path}/pub"
+execute 'Change directory permissions' do
+    command 'find var vendor pub/static pub/media app/etc -type d -exec chmod u+w {} \;'
+    cwd     magento_path
+    user    cli_user
+    group   www_group
     action  :nothing
+    only_if { node['magento']['update_permissions'] }
 end
 
+execute 'Change file permissions' do
+    command 'find var vendor pub/static pub/media app/etc -type f -exec chmod u+w {} \;'
+    cwd     magento_path
+    user    cli_user
+    group   www_group
+    action  :nothing
+    only_if { node['magento']['update_permissions'] }
+end
+
+link "Symlink docroot" do
+    target_file "#{docroot}/current"
+    to    magento_path
+    owner cli_user
+    group www_group
+   action :nothing
+end
+#
 execute 'Update magento bin permissions' do
     command "chmod 775 #{magento_bin}"
     action  :nothing
     only_if { node['magento']['update_permissions'] }
 end
-
+#
 execute 'Install sample data if desired' do
     command "#{magento_bin} sampledata:deploy"
     user    cli_user
@@ -96,30 +127,9 @@ end
 execute 'Magento setup' do
     command "#{magento_bin} setup:install #{magento_install_flags} --no-ansi"
     user    cli_user
+    group   www_group
     cwd     magento_path
     action  :nothing
-end
-
-template 'Install env.php' do
-    path    "#{magento_path}/app/etc/env.php"
-    owner   www_user
-    group   www_group
-    mode    '0644'
-    source  'magento/env.php.erb'
-    backup  false
-    only_if "test -d #{magento_path}/app/etc"
-end
-
-execute 'Set Magento deploy mode' do
-    command "#{magento_bin} deploy:mode:set #{node['magento']['mage_mode']}"
-    cwd     magento_path
-    user    cli_user
-end
-
-execute 'Magento setup:upgrade' do
-    command  "#{magento_bin} setup:upgrade"
-    cwd      magento_path
-    user    cli_user
 end
 
 execute 'Remove sample files' do
@@ -129,22 +139,33 @@ execute 'Remove sample files' do
     not_if  'find -type f -name *.sample'
 end
 
-execute 'Change directory permissions' do
-    command 'find var vendor pub/static pub/media app/etc -type d -exec chmod u+w {} \;'
-    cwd     magento_path
-    user    www_user
-    group   www_group
-    action  :nothing
-    only_if { node['magento']['update_permissions'] }
+# Link shared/app/etc/env.php
+link "#{magento_path}/app/etc/env.php" do
+    to        "#{docroot}/shared/app/etc/env.php"
+    owner     cli_user
+    group     www_group
+    link_type :hard
 end
 
-execute 'Change file permissions' do
-    command 'find var vendor pub/static pub/media app/etc -type f -exec chmod u+w {} \;'
+execute 'Set Magento deploy mode' do
+    command "#{magento_bin} -vvv deploy:mode:set #{node['magento']['mage_mode']} --skip-compilation"
     cwd     magento_path
-    user    www_user
+    user    cli_user
     group   www_group
-    action  :nothing
-    only_if { node['magento']['update_permissions'] }
+end
+
+execute 'Magento di compile' do
+    command "#{magento_bin} -vvv setup:di:compile"
+    cwd     magento_path
+    user    cli_user
+    group   www_group
+end
+
+execute 'Magento setup:upgrade' do
+    command  "#{magento_bin} -vvv setup:upgrade"
+    cwd      magento_path
+    user     cli_user
+    group   www_group
 end
 
 php_pool = node['magento']['application']['php_fpm_pool']
@@ -153,7 +174,7 @@ fpm_location = node['php']['sapi']['fpm']['conf']['pools'][php_pool]['listen'].t
 # Set Magento 2 vhost
 magento_vhost node['magento']['domain'] do
     nginx_listen  '127.0.0.1:8080'
-    docroot       magento_docroot
+    docroot       "#{docroot}/current/pub"
     fpm_location  "unix:#{fpm_location}"
     action        :create
 end
