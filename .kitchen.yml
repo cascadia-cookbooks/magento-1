@@ -17,11 +17,16 @@ platforms:
 suites:
   - name: default
     run_list:
+      - recipe[cop_base]
       - recipe[cop_magento::users]
-      - recipe[cop_magento::cli-tools]
-      - recipe[cop_magento::permissions]
-      - recipe[cop_magento::robots]
-      - recipe[cop_magento::composer-prep]
+      - recipe[cop_php]
+      - recipe[cop_nginx]
+      - recipe[cop_magento::data-bag]
+      - recipe[cop_mysql::install_client]
+      - recipe[cop_mysql::install_server]
+      - recipe[cop_redis]
+      - recipe[cop_composer::install]
+      - recipe[cop_magento]
     attributes:
       robots:
         allow: false
@@ -29,21 +34,6 @@ suites:
         directories:
           test_dir:
             path:  '/var/test'
-            owner: 'root'
-            group: 'root'
-            mode:  0755
-          composer_home:
-            path:  '/tmp/.composer'
-            owner: 'root'
-            group: 'root'
-            mode:  0755
-          magento_composer_home:
-            path:  '/tmp/composer_home'
-            owner: 'root'
-            group: 'root'
-            mode:  0755
-          magento:
-            path:  '/tmp/magento'
             owner: 'root'
             group: 'root'
             mode:  0755
