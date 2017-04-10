@@ -20,7 +20,6 @@ end
 
 describe 'magento::cli-tools' do
     tools = %w(
-        composer
         n98-magerun2
     )
     
