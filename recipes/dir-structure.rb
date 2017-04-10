@@ -8,11 +8,19 @@
 docroot            = node['magento']['docroot']
 additional_domains = node['magento']['additional_domains']
 
+cli_user           = node['magento']['users']['cli']['name']
+cli_group          = node['magento']['users']['cli']['group']
+
 www_user           = node['magento']['users']['www']['name']
 www_group          = node['magento']['users']['www']['group']
 
 dirs = %w(
     releases
+    releases/primary
+    releases/primary/magento
+    releases/primary/magento/app
+    releases/primary/magento/app/etc
+    releases/primary/magento/vendor
     shared
     shared/app
     shared/app/etc
