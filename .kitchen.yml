@@ -16,10 +16,7 @@ provisioner:
 platforms:
   - name: ubuntu/trusty64
   - name: ubuntu/xenial64
-  - name: centos/6
   - name: centos/7
-  - name: debian/wheezy64
-  - name: debian/jessie64
 
 suites:
   - name: default
