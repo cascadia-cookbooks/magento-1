@@ -6,7 +6,6 @@ end
 describe 'magento::users' do
     users = %w(
         mage-cli
-        www-data
     )
 
     users.each do |user|
