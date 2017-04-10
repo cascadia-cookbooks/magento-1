@@ -100,7 +100,9 @@ default['magento']['cache']['redis']['page_cache']['compress_data']          = '
 default['magento']['application']['php_fpm_pool'] = 'www'
 
 default['magento']['mysql']['table_prefix']                            = ''
-default['magento']['mysql']['connection']['default']['host']           = 'localhost'
+default['magento']['mysql']['connection']['default']['dbname']         = 'magento'
+default['magento']['mysql']['connection']['default']['username']       = 'mage'
+default['magento']['mysql']['connection']['default']['host']           = '127.0.0.1'
 default['magento']['mysql']['connection']['default']['model']          = 'mysql4'
 default['magento']['mysql']['connection']['default']['engine']         = 'innodb'
 default['magento']['mysql']['connection']['default']['initStatements'] = 'SET NAMES utf8'
@@ -122,7 +124,7 @@ default['magento']['cache_types']['eav']                     = 1
 default['magento']['cache_types']['customer_notification']   = 1
 default['magento']['cache_types']['full_page']               = 1
 default['magento']['cache_types']['config_integration']      = 1
-default['magento']['cache_types']['config_intergration_api'] = 1
+default['magento']['cache_types']['config_integration_api']  = 1
 default['magento']['cache_types']['translate']               = 1
 default['magento']['cache_types']['config_webservice']       = 1
 
