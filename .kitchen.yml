@@ -38,6 +38,8 @@ suites:
       robots:
         allow: false
       magento:
+        additional_domains:
+          - "example.net"
         directories:
           test_dir:
             path:  '/var/test'
