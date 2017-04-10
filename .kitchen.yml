@@ -7,6 +7,9 @@ driver:
 
 provisioner:
   name: chef_zero
+  environments_path: "test/integration/environments"
+  client_rb:
+    environment: development
 
 platforms:
   - name: ubuntu/trusty64
@@ -18,6 +21,8 @@ platforms:
 
 suites:
   - name: default
+    data_bags_path: "test/integration/data_bags"
+    encrypted_data_bag_secret_key_path: "test/integration/data_bag_encrypted_secret_key"
     run_list:
       - recipe[cop_base]
       - recipe[cop_magento::users]

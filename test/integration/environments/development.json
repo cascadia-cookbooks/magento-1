@@ -1,0 +1,80 @@
+{
+    "name": "development",
+    "description": "Development environment for Kitchen tests",
+    "json_class": "Chef::Environment",
+    "chef_type": "environment",
+    "default_attributes": {
+        "mysql": {
+            "change_root": true,
+            "root_password": "",
+            "users": {
+                "mage": {
+                    "databases": ["magento"],
+                    "host": "localhost",
+                    "grants": ["all"],
+                    "password": ""
+                }
+            },
+            "databases": ["magento"]
+        },
+        "redis": {
+            "bind": "0.0.0.0",
+            "databases": "3"
+        }
+    },
+    "override_attributes": {
+        "nginx": {
+            "remove_default_site": true
+        },
+        "php": {
+            "sapi": {
+                "cli": {
+                    "ini": {
+                        "allow_url_fopen": "1",
+                        "memory_limit": "2G"
+                    }
+                },
+                "fpm": {
+                    "ini": {
+                        "display_errors": "1",
+                        "error_log": "/var/log/php-fpm.error.log",
+                        "mail_add_x_header": "1",
+                        "report_zend_debug": "1",
+                        "sendmail_path": "/usr/sbin/sendmail -t -i",
+						"disable_functions": "dl, exec, gc_collect_cycles, gc_disable, gc_enable, gc_enabled, get_cfg_var, get_current_user, getlastmod, getmygid, getmyinode, getmyuid, lchgrp, lchown, link, passthru, pclose, pcntl_alarm, pcntl_exec, pcntl_fork, pcntl_get_last_error, pcntl_getpriority, pcntl_setpriority, pcntl_signal, pcntl_signal_dispatch, pcntl_sigprocmask, pcntl_sigtimedwait, pcntl_sigwaitinfo, pcntl_strerror, pcntl_wait, pcntl_waitpid, pcntl_wexitstatus, pcntl_wifexited, pcntl_wifsignaled, pcntl_wifstopped, pcntl_wstopsig, pcntl_wtermsig, php_uname, popen, posix_getlogin, posix_mkfifo, posix_ttyname, proc_close, proc_get_status,proc_nice, proc_open, proc_terminate, prog_get_status, set_time_limit, shell_exec, show_source, system"
+                    },
+                    "session": {
+                        "ini": {
+                            "session_cache_limiter": "private_no_expire",
+                            "session_hash_function": "0"
+                        }
+                    },
+                    "conf": {
+                        "pools": {
+                            "www": {
+                                "user": "www-data",
+                                "group": "www-data",
+                                "listen_user": "www-data",
+                                "listen_group": "www-data",
+                                "listen_mode": "0666",
+                                "pm_start_servers": "8",
+                                "pm_min_spare_servers": "8",
+                                "pm_max_spare_servers": "16",
+                                "pm_max_children": "32",
+                                "pm_process_idle_timeout": "90s",
+                                "pm_max_requests": "1000",
+                                "php_options": {
+                                    "php_admin_flag[log_errors]": "on",
+                                    "php_admin_value[error_log]": "/var/log/php-fpm/error.log",
+                                    "php_admin_value[memory_limit]": "512m",
+                                    "php_admin_value[post_max_size]": "16m",
+                                    "php_admin_value[upload_max_filesize]": "16m"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+} 
