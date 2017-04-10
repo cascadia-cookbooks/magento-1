@@ -32,7 +32,7 @@ dirs = %w(
 )
 
 # Create structure for default domain
-directory "#{docroot}" do
+directory docroot do
     owner     www_user
     group     www_group
     mode      0755
