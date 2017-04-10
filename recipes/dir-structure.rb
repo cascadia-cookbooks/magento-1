@@ -33,7 +33,7 @@ dirs = %w(
 
 # Create structure for default domain
 directory docroot do
-    owner     www_user
+    owner     cli_user
     group     www_group
     mode      0755
     recursive true
@@ -42,7 +42,7 @@ end
 
 dirs.each do |dir|
     directory "#{docroot}/#{dir}" do
-        owner     www_user
+        owner     cli_user
         group     www_group
         mode      0755
         recursive true
@@ -53,7 +53,7 @@ end
 # Create structure for any additional domains
 additional_domains.each do |domain|
     directory "/var/www/#{domain}" do
-        owner     www_user
+        owner     cli_user
         group     www_group
         mode      0755
         recursive true
@@ -62,7 +62,7 @@ additional_domains.each do |domain|
 
     dirs.each do |dir|
         directory "/var/www/#{domain}/#{dir}" do
-            owner     www_user
+            owner     cli_user
             group     www_group
             mode      0755
             recursive true
