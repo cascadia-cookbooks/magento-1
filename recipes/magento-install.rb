@@ -57,7 +57,7 @@ execute 'Composer installing' do
     command     "composer install -vvvv #{composer_install_flags}"
     cwd         magento_path
     user        cli_user
-    group       www_group ########################################
+    group       www_group
     environment ({
         'COMPOSER_HOME'      => composer_home,
         'COMPOSER_CACHE_DIR' => "#{composer_home}/cache"
