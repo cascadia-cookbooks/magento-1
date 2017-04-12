@@ -10,6 +10,8 @@ dirs = %w(
     /vagrant/magento
     /vagrant/magento/app
     /vagrant/magento/app/etc
+    /vagrant/magento/var
+    /vagrant/magento/var/session
     /vagrant/magento/vendor
 )
 

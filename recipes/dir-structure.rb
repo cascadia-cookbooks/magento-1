@@ -20,6 +20,8 @@ dirs = %w(
     releases/primary/magento
     releases/primary/magento/app
     releases/primary/magento/app/etc
+    releases/primary/magento/var
+    releases/primary/magento/var/session
     releases/primary/magento/vendor
     shared
     shared/app
