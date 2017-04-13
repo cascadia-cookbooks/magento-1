@@ -3,13 +3,14 @@
 # Recipe:: composer-prep
 #
 
-cli_user  = node['magento']['users']['cli']['name']
-cli_group = node['magento']['users']['cli']['group']
+cli_user     = node['magento']['users']['cli']['name']
+cli_group    = node['magento']['users']['cli']['group']
 
-www_user  = node['magento']['users']['www']['name']
-www_group = node['magento']['users']['www']['group']
+www_user     = node['magento']['users']['www']['name']
+www_group    = node['magento']['users']['www']['group']
 
-docroot   = node['magento']['docroot']
+docroot      = node['magento']['docroot']
+magento_path = node['magento']['installation_path']
 
 # Create directory for cli_user Composer auth.json
 directory "/home/#{cli_user}/.composer" do
@@ -42,10 +43,21 @@ template 'Installing Magento Composer auth.json' do
 end
 
 # Generate Composer composer.json in shared directory
-template 'Creating composer.json' do
+template 'Creating shared composer.json' do
     path    "#{docroot}/shared/composer/composer.json"
     source  'composer/composer.json.erb'
     owner   www_user
+    group   www_group
+    mode    0644
+    action  :create
+    backup  false
+end
+
+# Generate Composer composer.json in installation directory
+template 'Creating installation composer.json' do
+    path    "#{magento_path}/composer.json"
+    source  'composer/composer.json.erb'
+    owner   cli_user
     group   www_group
     mode    0644
     action  :create
