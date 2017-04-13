@@ -152,6 +152,14 @@ execute 'Magento di compile' do
     group   www_group
 end
 
+execute 'Magento static content deploy' do
+    command "#{magento_bin} setup:static-content:deploy"
+    cwd     magento_path
+    user    cli_user
+    group   www_group
+    only_if { node['magento']['mage_mode'] == 'production' }
+end
+
 execute 'Magento setup:upgrade' do
     command  "#{magento_bin} -vvv setup:upgrade"
     cwd      magento_path
