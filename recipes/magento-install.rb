@@ -150,6 +150,7 @@ execute 'Magento di compile' do
     cwd     magento_path
     user    cli_user
     group   www_group
+    only_if { node['magento']['mage_mode'] == 'production' }
 end
 
 execute 'Magento static content deploy' do
