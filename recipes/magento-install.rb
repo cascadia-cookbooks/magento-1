@@ -44,14 +44,6 @@ if node['magento']['installation']['sample_data']
     magento_install_flags = "--use-sample-data #{magento_install_flags}"
 end
 
-# Link shared/composer/composer.json
-link "#{magento_path}/composer.json" do
-    to        "#{docroot}/shared/composer/composer.json"
-    owner     cli_user
-    group     www_group
-    link_type :hard
-end
-
 # Run composer install
 execute 'Composer installing' do
     command     "composer install -vvvv #{composer_install_flags}"
@@ -144,7 +136,6 @@ link "#{magento_path}/app/etc/env.php" do
     to        "#{docroot}/shared/app/etc/env.php"
     owner     cli_user
     group     www_group
-    link_type :hard
 end
 
 execute 'Set Magento deploy mode' do
@@ -165,7 +156,7 @@ execute 'Magento setup:upgrade' do
     command  "#{magento_bin} -vvv setup:upgrade"
     cwd      magento_path
     user     cli_user
-    group   www_group
+    group    www_group
 end
 
 php_pool = node['magento']['application']['php_fpm_pool']
