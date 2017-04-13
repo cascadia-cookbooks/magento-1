@@ -145,6 +145,20 @@ execute 'Set Magento deploy mode' do
     group   www_group
 end
 
+execute 'Magento di compile' do
+    command "#{magento_bin} -vvv setup:di:compile"
+    cwd     magento_path
+    user    cli_user
+    group   www_group
+end
+
+execute 'Magento setup:upgrade' do
+    command  "#{magento_bin} -vvv setup:upgrade"
+    cwd      magento_path
+    user     cli_user
+    group   www_group
+end
+
 php_pool = node['magento']['application']['php_fpm_pool']
 fpm_location = node['php']['sapi']['fpm']['conf']['pools'][php_pool]['listen'].tr('"', '')
 
