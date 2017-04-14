@@ -17,6 +17,7 @@ platforms:
   - name: ubuntu/trusty64
   - name: ubuntu/xenial64
   - name: centos/7
+  - name: centos/6
 
 suites:
   - name: default
