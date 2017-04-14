@@ -1,6 +1,6 @@
 {
     "name": "magento/copious-dev-box",
-    "description": "eCommerce Platform for Growth (<%= node[:magento][:edition] %> Edition)",
+    "description": "eCommerce Platform for Growth (<%= node['magento']['edition'] %> Edition)",
     "type": "project",
     "license": [
         "proprietary"
@@ -12,8 +12,8 @@
         }
     ],
     "require": {
-        "wikimedia/composer-merge-plugin": "<%= node[:composer][:merge][:version] %>",
-        "<%= node[:magento][:composer_project] %>": "<%= node[:magento][:version] %>",
+        "wikimedia/composer-merge-plugin": "<%= node['magento']['composer']['merge']['version'] %>",
+        "<%= node['magento']['composer_project'] %>": "<%= node['magento']['version'] %>",
         "composer/composer": "@alpha"
     },
     "require-dev": {
@@ -56,10 +56,10 @@
             "include": [
                 "../src/composer.json"
             ],
-            "recurse": <%= node[:composer][:merge][:recurse] %>,
-            "replace": <%= node[:composer][:merge][:replace] %>,
-            "merge-dev": <%= node[:composer][:merge][:merge_dev] %>,
-            "merge-extra": <%= node[:composer][:merge][:merge_extra] %>
+            "recurse": <%= node['magento']['composer']['merge']['recurse'] %>,
+            "replace": <%= node['magento']['composer']['merge']['replace'] %>,
+            "merge-dev": <%= node['magento']['composer']['merge']['merge_dev'] %>,
+            "merge-extra": <%= node['magento']['composer']['merge']['merge_extra'] %>
         }
     },
     "minimum-stability": "alpha",

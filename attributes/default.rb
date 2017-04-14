@@ -129,15 +129,12 @@ default['magento']['cache_types']['translate']               = 1
 default['magento']['cache_types']['config_webservice']       = 1
 
 
-# Composer
-default['composer']['merge']['version']     = 'v1.3.1'
-default['composer']['merge']['recurse']     = false
-default['composer']['merge']['replace']     = true
-default['composer']['merge']['merge_dev']   = true
-default['composer']['merge']['merge_extra'] = true
+default['magento']['composer']['merge']['version']     = 'v1.3.1'
+default['magento']['composer']['merge']['recurse']     = false
+default['magento']['composer']['merge']['replace']     = true
+default['magento']['composer']['merge']['merge_dev']   = true
+default['magento']['composer']['merge']['merge_extra'] = true
 
-default['composer']['binary']['path']       = '/usr/local/bin/composer'
-
-default['composer']['repositories']['repo.magento.com']['username'] = ''
-default['composer']['repositories']['repo.magento.com']['password'] = ''
-default['composer']['repositories']['copious_repos']['token']       = ''
+default['magento']['composer']['repositories']['repo.magento.com']['username'] = ''
+default['magento']['composer']['repositories']['repo.magento.com']['password'] = ''
+default['magento']['composer']['repositories']['copious_repos']['token']       = ''

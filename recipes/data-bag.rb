@@ -23,9 +23,9 @@ def update_mysql_vars(data_bag_item)
 end
 
 def update_composer_vars(data_bag_item)
-    node.normal['composer']['repositories']['repo.magento.com']['username'] = data_bag_item['magento-repo-user']
-    node.normal['composer']['repositories']['repo.magento.com']['password'] = data_bag_item['magento-repo-password']
-    node.normal['composer']['repositories']['copious_repos']['token']       = data_bag_item['copious-repos-token']
+    node.normal['magento']['composer']['repositories']['repo.magento.com']['username'] = data_bag_item['magento-repo-user']
+    node.normal['magento']['composer']['repositories']['repo.magento.com']['password'] = data_bag_item['magento-repo-password']
+    node.normal['magento']['composer']['repositories']['copious_repos']['token']       = data_bag_item['copious-repos-token']
 end
 
 def update_magento_vars(data_bag_item)
