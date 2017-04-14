@@ -140,3 +140,6 @@ default['magento']['composer']['merge']['merge_extra'] = true
 default['magento']['composer']['repositories']['repo.magento.com']['username'] = ''
 default['magento']['composer']['repositories']['repo.magento.com']['password'] = ''
 default['magento']['composer']['repositories']['copious_repos']['token']       = ''
+
+# Override cop_composer
+default['composer']['binary']['path']  = '/usr/local/bin/composer'
