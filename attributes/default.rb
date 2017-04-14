@@ -28,11 +28,11 @@ default['magento']['files']       = {}
 default['magento']['update_permissions'] = true
 
 # Toolsies
-default['magento']['tools']['magerun']['path']    = '/usr/local/bin/n98-magerun2'
-default['magento']['tools']['magerun']['source']  = 'n98-magerun2.phar'
-default['magento']['tools']['magerun']['owner']   = 'mage-cli'
-default['magento']['tools']['magerun']['group']   = 'cli'
-default['magento']['tools']['magerun']['mode']    = '0755'
+default['magento']['tools']['magerun']['path']   = '/usr/local/bin/n98-magerun2'
+default['magento']['tools']['magerun']['source'] = 'n98-magerun2.phar'
+default['magento']['tools']['magerun']['owner']  = 'mage-cli'
+default['magento']['tools']['magerun']['group']  = 'cli'
+default['magento']['tools']['magerun']['mode']   = '0755'
 
 # Installation Parameters
 default['magento']['installation']['admin_first']       = 'Admin'
@@ -116,19 +116,19 @@ default['magento']['x_frame_options'] = 'SAMEORIGIN'
 
 default['magento']['mage_mode'] = 'production'
 
-default['magento']['cache_types']['config']                  = 1
-default['magento']['cache_types']['layout']                  = 1
-default['magento']['cache_types']['block_html']              = 1
-default['magento']['cache_types']['collections']             = 1
-default['magento']['cache_types']['reflection']              = 1
-default['magento']['cache_types']['db_ddl']                  = 1
-default['magento']['cache_types']['eav']                     = 1
-default['magento']['cache_types']['customer_notification']   = 1
-default['magento']['cache_types']['full_page']               = 1
-default['magento']['cache_types']['config_integration']      = 1
-default['magento']['cache_types']['config_integration_api']  = 1
-default['magento']['cache_types']['translate']               = 1
-default['magento']['cache_types']['config_webservice']       = 1
+default['magento']['cache_types']['config']                 = 1
+default['magento']['cache_types']['layout']                 = 1
+default['magento']['cache_types']['block_html']             = 1
+default['magento']['cache_types']['collections']            = 1
+default['magento']['cache_types']['reflection']             = 1
+default['magento']['cache_types']['db_ddl']                 = 1
+default['magento']['cache_types']['eav']                    = 1
+default['magento']['cache_types']['customer_notification']  = 1
+default['magento']['cache_types']['full_page']              = 1
+default['magento']['cache_types']['config_integration']     = 1
+default['magento']['cache_types']['config_integration_api'] = 1
+default['magento']['cache_types']['translate']              = 1
+default['magento']['cache_types']['config_webservice']      = 1
 
 
 default['magento']['composer']['merge']['version']     = 'v1.3.1'
@@ -142,4 +142,4 @@ default['magento']['composer']['repositories']['repo.magento.com']['password'] =
 default['magento']['composer']['repositories']['copious_repos']['token']       = ''
 
 # Override cop_composer
-default['composer']['binary']['path']  = '/usr/local/bin/composer'
+default['composer']['binary']['path'] = '/usr/local/bin/composer'
