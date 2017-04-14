@@ -15,6 +15,8 @@ www_group               = node['magento']['users']['www']['group']
 
 composer_home           = "/home/#{cli_user}/.composer"
 
+verbosity               = node['magento']['installation']['verbosity']
+
 # Composer installation flags
 composer_base_flags     = '--no-interaction --no-ansi'
 composer_pref_flags     = '--no-suggest --prefer-dist'
@@ -46,7 +48,7 @@ end
 
 # Run composer install
 execute 'Composer installing' do
-    command     "composer install -vvvv #{composer_install_flags}"
+    command     "composer install -#{verbosity} #{composer_install_flags}"
     cwd         magento_path
     user        cli_user
     group       www_group
@@ -139,14 +141,14 @@ link "#{magento_path}/app/etc/env.php" do
 end
 
 execute 'Set Magento deploy mode' do
-    command "#{magento_bin} -vvv deploy:mode:set #{node['magento']['mage_mode']} --skip-compilation"
+    command "#{magento_bin} -#{verbosity} deploy:mode:set #{node['magento']['mage_mode']} --skip-compilation"
     cwd     magento_path
     user    cli_user
     group   www_group
 end
 
 execute 'Magento di compile' do
-    command "#{magento_bin} -vvv setup:di:compile"
+    command "#{magento_bin} -#{verbosity} setup:di:compile"
     cwd     magento_path
     user    cli_user
     group   www_group
@@ -154,7 +156,7 @@ execute 'Magento di compile' do
 end
 
 execute 'Magento static content deploy' do
-    command "#{magento_bin} setup:static-content:deploy"
+    command "#{magento_bin} -#{verbosity} setup:static-content:deploy"
     cwd     magento_path
     user    cli_user
     group   www_group
@@ -162,7 +164,7 @@ execute 'Magento static content deploy' do
 end
 
 execute 'Magento setup:upgrade' do
-    command  "#{magento_bin} -vvv setup:upgrade"
+    command  "#{magento_bin} -#{verbosity} setup:upgrade"
     cwd      magento_path
     user     cli_user
     group   www_group
