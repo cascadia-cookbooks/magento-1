@@ -1,16 +1,16 @@
-<% if node[:robots][:allow] == false -%>
+<% if node['robots']['allow'] == false -%>
 User-agent: *
 Disallow: /
 <% end -%>
-<% if node[:robots][:allow] == true -%>
-    <% node[:robots][:user_agents].each do |user_agent, disallowed_dirs| -%>
+<% if node['robots']['allow'] == true -%>
+    <% node['robots']['user_agents'].each do |user_agent, disallowed_dirs| -%>
 User-agent: <%= user_agent %>
         <% disallowed_dirs.each do |dir| -%>
 Disallow: <%= dir %>
         <% end -%>
     <% end -%>
 
-    <% node[:robots][:sitemaps].each do |name, sitemap| -%>
+    <% node['robots']['sitemaps'].each do |name, sitemap| -%>
 Sitemap: <%= sitemap %>
     <% end -%>
 <% end -%>
