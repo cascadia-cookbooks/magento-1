@@ -87,10 +87,10 @@ end
 
 link "Symlink docroot" do
     target_file "#{docroot}/current"
-    to    magento_path
-    owner cli_user
-    group www_group
-   action :nothing
+    to          magento_path
+    owner       cli_user
+    group       www_group
+   action       :nothing
 end
 #
 execute 'Update magento bin permissions' do
@@ -107,15 +107,15 @@ execute 'Install sample data if desired' do
 end
 
 execute 'Update composer if sample data' do
-    command "composer update #{composer_update_flags}"
-    user    cli_user
-    cwd     magento_path
+    command     "composer update #{composer_update_flags}"
+    user        cli_user
+    cwd         magento_path
     environment ({
         'COMPOSER_HOME'      => composer_home,
         'COMPOSER_CACHE_DIR' => "#{composer_home}/cache"
     })
-    action  :nothing
-    only_if { node['magento']['installation']['sample_data'] }
+    action      :nothing
+    only_if     { node['magento']['installation']['sample_data'] }
 end
 
 execute 'Magento setup' do
@@ -135,9 +135,9 @@ end
 
 # Link shared/app/etc/env.php
 link "#{magento_path}/app/etc/env.php" do
-    to        "#{docroot}/shared/app/etc/env.php"
-    owner     cli_user
-    group     www_group
+    to    "#{docroot}/shared/app/etc/env.php"
+    owner cli_user
+    group www_group
 end
 
 execute 'Set Magento deploy mode' do
@@ -164,9 +164,9 @@ execute 'Magento static content deploy' do
 end
 
 execute 'Magento setup:upgrade' do
-    command  "#{magento_bin} -#{verbosity} setup:upgrade"
-    cwd      magento_path
-    user     cli_user
+    command "#{magento_bin} -#{verbosity} setup:upgrade"
+    cwd     magento_path
+    user    cli_user
     group   www_group
 end
 
@@ -175,8 +175,8 @@ fpm_location = node['php']['sapi']['fpm']['conf']['pools'][php_pool]['listen'].t
 
 # Set Magento 2 vhost
 magento_vhost node['magento']['domain'] do
-    nginx_listen  '0.0.0.0:80'
-    docroot       "#{docroot}/current/pub"
-    fpm_location  "unix:#{fpm_location}"
-    action        :create
+    nginx_listen '0.0.0.0:80'
+    docroot      "#{docroot}/current/pub"
+    fpm_location "unix:#{fpm_location}"
+    action       :create
 end
