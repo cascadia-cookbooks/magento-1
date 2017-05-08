@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: magento
-# Recipe:: default
+# Recipe:: full-install
 #
 
 include_recipe 'cop_magento::data-bag'

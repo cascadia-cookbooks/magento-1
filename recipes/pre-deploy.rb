@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: magento
-# Recipe:: default
+# Recipe:: pre-deploy
 #
 
 include_recipe 'cop_magento::data-bag'
