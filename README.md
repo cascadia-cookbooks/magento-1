@@ -39,6 +39,10 @@
 
 ## Usage
 
+By design, the `default` recipe does nothing. There are two convenience recipes included:
+* `cop_magento::full-install`: Configures environment and installs Magento
+* `cop_magento::pre-deploy`: Configures the environment for a pre-generated artifact deployment
+
 Here's an example `web` role that will install Magento
 
 ```
@@ -55,7 +59,27 @@ override_attributes(
 )
 
 run_list(
-    'recipe[cop_magento::default]'
+    'recipe[cop_magento::full-install]'
+)
+```
+
+Additionally, a recipe is included that will prepare the environment for deploying a generated artifact.
+This recipe does not actually install Magento, but creates the directory structure and all dependencies.
+A CI tool such as CircleCI can then be used to generate a deployable artifact which can be overlayed on
+this environment.
+
+```
+name 'web'
+description 'prep environment for Magento artifact deploy'
+
+override_attributes(
+    'magento': {
+        'domain': 'example.net',
+    }
+)
+
+run_list(
+    'recipe[cop_magento::pre-deploy]'
 )
 ```
 
