@@ -1,0 +1,6 @@
+{
+    "id": "mage-cli",
+    "action": "create",
+    "comment": "Mage CLI User",
+    "groups": ["sudo", "cli"]
+}
