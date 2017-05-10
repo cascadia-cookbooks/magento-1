@@ -3,11 +3,11 @@
 # Recipe:: composer-prep
 #
 
-cli_user     = node['magento']['users']['cli']['name']
-cli_group    = node['magento']['users']['cli']['group']
+cli_user     = node['magento']['cli_user']['name']
+cli_group    = node['magento']['cli_user']['group']
 
-www_user     = node['magento']['users']['www']['name']
-www_group    = node['magento']['users']['www']['group']
+www_user     = node['magento']['www_user']['name']
+www_group    = node['magento']['www_user']['group']
 
 docroot      = node['magento']['docroot']
 magento_path = node['magento']['installation_path']

@@ -8,10 +8,11 @@ magento_path            = node['magento']['installation_path']
 magento_bin             = "#{magento_path}/bin/magento"
 magento_composer_home   = "#{magento_path}/var/composer_home"
 
-cli_user                = node['magento']['users']['cli']['name']
-cli_group               = node['magento']['users']['cli']['group']
-www_user                = node['magento']['users']['www']['name']
-www_group               = node['magento']['users']['www']['group']
+cli_user                = node['magento']['cli_user']['name']
+cli_group               = node['magento']['cli_user']['group']
+
+www_user                = node['magento']['www_user']['name']
+www_group               = node['magento']['www_user']['group']
 
 composer_home           = "/home/#{cli_user}/.composer"
 
