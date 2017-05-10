@@ -4,6 +4,10 @@
     "json_class": "Chef::Environment",
     "chef_type": "environment",
     "default_attributes": {
+        "users": {
+            "user_list": ["mage-cli", "www-data"],
+            "group_list": ["sudo", "cli"]
+        },
         "mysql": {
             "change_root": true,
             "root_password": "",
