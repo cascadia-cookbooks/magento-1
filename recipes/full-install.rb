@@ -4,7 +4,6 @@
 #
 
 include_recipe 'cop_magento::data-bag'
-include_recipe 'cop_magento::users'
 include_recipe 'cop_magento::cli-tools'
 include_recipe 'cop_magento::dir-structure'
 if node.chef_environment == "development"

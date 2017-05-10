@@ -1,0 +1,6 @@
+{
+    "id": "www-data",
+    "action": "create",
+    "comment": "www-data user",
+    "groups": []
+}
