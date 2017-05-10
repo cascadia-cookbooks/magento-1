@@ -6,7 +6,7 @@
     "default_attributes": {
         "users": {
             "user_list": ["mage-cli", "www-data"],
-            "group_list": ["sudo", "cli"]
+            "group_list": ["sudo", "cli", "www-data"]
         },
         "mysql": {
             "change_root": true,
