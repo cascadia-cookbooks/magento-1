@@ -25,8 +25,8 @@ default['magento']['update_permissions'] = true
 # Toolsies
 default['magento']['tools']['magerun']['path']   = '/usr/local/bin/n98-magerun2'
 default['magento']['tools']['magerun']['source'] = 'n98-magerun2.phar'
-default['magento']['tools']['magerun']['owner']  = 'mage-cli'
-default['magento']['tools']['magerun']['group']  = 'cli'
+default['magento']['tools']['magerun']['owner']  = node['magento']['cli_user']['name']
+default['magento']['tools']['magerun']['group']  = node['magento']['cli_user']['group']
 default['magento']['tools']['magerun']['mode']   = '0755'
 
 # Installation Parameters
