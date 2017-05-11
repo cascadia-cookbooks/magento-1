@@ -11,15 +11,10 @@ default['magento']['docroot']           = "/var/www/#{node['magento']['domain']}
 default['magento']['installation_path'] = "#{node['magento']['docroot']}/releases/primary/magento"
 
 # Users and groups
-default['magento']['users']['cli']['name']  = 'mage-cli'
-default['magento']['users']['cli']['group'] = 'cli'
-default['magento']['users']['www']['name']  = 'www-data'
-default['magento']['users']['www']['group'] = 'www-data'
-
-default['magento']['groups']['cli']['name']         = 'cli'
-default['magento']['groups']['cli']['members']      = ['mage-cli']
-default['magento']['groups']['www-data']['name']    = 'www-data'
-default['magento']['groups']['www-data']['members'] = ['www-data', 'mage-cli']
+default['magento']['cli_user']['name']  = 'mage-cli'
+default['magento']['cli_user']['group'] = 'cli'
+default['magento']['www_user']['name']  = 'www-data'
+default['magento']['www_user']['group'] = 'www-data'
 
 # Additional directories and files
 default['magento']['directories'] = {}
@@ -30,8 +25,8 @@ default['magento']['update_permissions'] = true
 # Toolsies
 default['magento']['tools']['magerun']['path']   = '/usr/local/bin/n98-magerun2'
 default['magento']['tools']['magerun']['source'] = 'n98-magerun2.phar'
-default['magento']['tools']['magerun']['owner']  = 'mage-cli'
-default['magento']['tools']['magerun']['group']  = 'cli'
+default['magento']['tools']['magerun']['owner']  = node['magento']['cli_user']['name']
+default['magento']['tools']['magerun']['group']  = node['magento']['cli_user']['group']
 default['magento']['tools']['magerun']['mode']   = '0755'
 
 # Installation Parameters

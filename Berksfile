@@ -9,3 +9,4 @@ cookbook 'cop_nginx', tag: '0.4.3', git: 'git@github.com:copious-cookbooks/nginx
 cookbook 'cop_ntp', tag: '2.0.1', git: 'git@github.com:copious-cookbooks/ntp.git'
 cookbook 'cop_php', tag: '0.6.3', git: 'git@github.com:copious-cookbooks/php.git'
 cookbook 'cop_redis', tag: '0.3.0', git: 'git@github.com:copious-cookbooks/redis.git'
+cookbook 'cop_users', tag: '0.0.7', git: 'git@github.com:copious-cookbooks/users.git'
