@@ -17,21 +17,6 @@ describe 'magento::users' do
     end
 end
 
-describe 'magento::cli-tools' do
-    tools = %w(
-        n98-magerun2
-    )
-    
-    tools.each do |tool|
-        describe file("/usr/local/bin/#{tool}") do
-            it { should exist }
-            it { should be_owned_by 'mage-cli' }
-            it { should be_grouped_into 'cli' }
-            it { should be_mode 755 }
-        end
-    end
-end
-
 describe 'magento::permissions' do
     describe file('/var/test') do
         it { should be_directory }
