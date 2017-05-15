@@ -22,13 +22,6 @@ default['magento']['files']       = {}
 
 default['magento']['update_permissions'] = true
 
-# Toolsies
-default['magento']['tools']['magerun']['path']   = '/usr/local/bin/n98-magerun2'
-default['magento']['tools']['magerun']['source'] = 'n98-magerun2.phar'
-default['magento']['tools']['magerun']['owner']  = node['magento']['cli_user']['name']
-default['magento']['tools']['magerun']['group']  = node['magento']['cli_user']['group']
-default['magento']['tools']['magerun']['mode']   = '0755'
-
 # Installation Parameters
 default['magento']['installation']['admin_first']       = 'Admin'
 default['magento']['installation']['admin_last']        = 'User'
@@ -138,3 +131,7 @@ default['magento']['composer']['repositories']['copious_repos']['token']       =
 
 # Override cop_composer
 default['composer']['binary']['path'] = '/usr/local/bin/composer'
+
+# n98-magerun2 attributes
+default['magento']['n98']['version']  = '1.4.0'
+default['magento']['n98']['checksum'] = '63449a78866a02bb42d350f96102e7a4d9629a3893e6c5db784ce6d23160fb9b'
