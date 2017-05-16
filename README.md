@@ -16,9 +16,6 @@
 
 * `node['magento']['docroot']` (string) defaults to `/var/www/<domain>`
 
-* `node['magento']['n98']['version']` Version of [n98-magerun2](https://files.magerun.net/old_versions.php) to download, defaults to `1.4.0`
-* `node['magento']['n98']['checksum']` Checksum for specified version
-
 * `node['magento']['update_permissions']` (boolean) update Magento file and directory permissions, defaults to `true`
 
 * `node['magento']['installation']['verbosity']` (string) verbosity of Composer and Magento install, defaults to `vvv` 
@@ -39,6 +36,15 @@
 ['date']              = Time.now.strftime("%a, %d %B %Y %H:%M:%S +0000")
 ['sample_data']       = false
 ```
+
+### N98-Magerun
+
+* `node['magento']['n98']['version']` Version of [n98-magerun2](https://files.magerun.net/old_versions.php) to download, defaults to `1.4.0`
+* `node['magento']['n98']['checksum']` Checksum for specified version
+* `node['magento']['n98']['path']` Path to install to, defaults to `/usr/local/bin/n98-magerun2`
+* `node['magento']['n98']['owner']` Owner, defaults to `root`
+* `node['magento']['n98']['group']` Group, defaults to `root`
+* `node['magento']['n98']['mode']` Mode, defaults to `0755`
 
 ## Usage
 
