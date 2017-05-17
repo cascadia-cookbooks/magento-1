@@ -133,6 +133,7 @@ default['magento']['composer']['repositories']['copious_repos']['token']       =
 default['composer']['binary']['path'] = '/usr/local/bin/composer'
 
 # n98-magerun2 attributes
+default['magento']['n98']['enabled']  = true
 default['magento']['n98']['version']  = '1.4.0'
 default['magento']['n98']['checksum'] = '63449a78866a02bb42d350f96102e7a4d9629a3893e6c5db784ce6d23160fb9b'
 default['magento']['n98']['path']     = '/usr/local/bin/n98-magerun2'

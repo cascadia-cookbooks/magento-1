@@ -5,12 +5,14 @@
 
 n98 = node['magento']['n98']
 
-remote_file 'N98-Magerun CLI Tool' do
-    source   "https://files.magerun.net/n98-magerun2-#{n98['version']}.phar"
-    checksum n98['checksum']
-    path     n98['path']
-    owner    n98['owner']
-    group    n98['group']
-    mode     n98['mode']
-    action   :create
+if n98['enabled'] == true
+    remote_file 'N98-Magerun CLI Tool' do
+        source   "https://files.magerun.net/n98-magerun2-#{n98['version']}.phar"
+        checksum n98['checksum']
+        path     n98['path']
+        owner    n98['owner']
+        group    n98['group']
+        mode     n98['mode']
+        action   :create
+    end
 end
