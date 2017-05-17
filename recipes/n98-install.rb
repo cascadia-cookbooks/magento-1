@@ -5,7 +5,7 @@
 
 n98 = node['magento']['n98']
 
-if n98['enabled'] == true
+if n98['enabled']
     remote_file 'N98-Magerun CLI Tool' do
         source   "https://files.magerun.net/n98-magerun2-#{n98['version']}.phar"
         checksum n98['checksum']
