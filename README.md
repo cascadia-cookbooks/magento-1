@@ -39,6 +39,7 @@
 
 ### N98-Magerun
 
+* `node['magento']['n98']['enabled']` Defaults to `true`
 * `node['magento']['n98']['version']` Version of [n98-magerun2](https://files.magerun.net/old_versions.php) to download, defaults to `1.4.0`
 * `node['magento']['n98']['checksum']` Checksum for specified version
 * `node['magento']['n98']['path']` Path to install to, defaults to `/usr/local/bin/n98-magerun2`
