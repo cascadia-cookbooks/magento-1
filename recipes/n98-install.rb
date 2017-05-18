@@ -3,16 +3,16 @@
 # Recipe:: n98-install
 #
 
-n98_version  = node['magento']['n98']['version']
-n98_checksum = node['magento']['n98']['checksum']
-n98_owner    = node['magento']['cli_user']['name']
-n98_group    = node['magento']['cli_user']['group'] 
+n98 = node['magento']['n98']
 
-remote_file '/usr/local/bin/n98-magerun2' do
-    source   "https://files.magerun.net/n98-magerun2-#{n98_version}.phar"
-    checksum n98_checksum
-    owner    n98_owner
-    group    n98_group
-    mode     '0755'
-    action   :create
+if n98['enabled']
+    remote_file 'N98-Magerun CLI Tool' do
+        source   "https://files.magerun.net/n98-magerun2-#{n98['version']}.phar"
+        checksum n98['checksum']
+        path     n98['path']
+        owner    n98['owner']
+        group    n98['group']
+        mode     n98['mode']
+        action   :create
+    end
 end
