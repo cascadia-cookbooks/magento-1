@@ -37,7 +37,7 @@ dirs = %w(
 directory docroot do
     owner     cli_user
     group     www_group
-    mode      0755
+    mode      0775
     recursive true
     action    :create
 end
@@ -46,7 +46,7 @@ dirs.each do |dir|
     directory "#{docroot}/#{dir}" do
         owner     cli_user
         group     www_group
-        mode      0755
+        mode      0775
         recursive true
         action    :create
     end
@@ -57,7 +57,7 @@ additional_domains.each do |domain|
     directory "/var/www/#{domain}" do
         owner     cli_user
         group     www_group
-        mode      0755
+        mode      0775
         recursive true
         action    :create
     end
@@ -66,7 +66,7 @@ additional_domains.each do |domain|
         directory "/var/www/#{domain}/#{dir}" do
             owner     cli_user
             group     www_group
-            mode      0755
+            mode      0775
             recursive true
             action    :create
         end
