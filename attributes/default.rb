@@ -18,6 +18,8 @@ default['magento']['www_user']['group'] = 'www-data'
 
 default['magento']['update_permissions'] = true
 
+default['magento']['directory']['permissions'] = 0775
+
 # Installation Parameters
 default['magento']['installation']['admin_first']       = 'Admin'
 default['magento']['installation']['admin_last']        = 'User'
