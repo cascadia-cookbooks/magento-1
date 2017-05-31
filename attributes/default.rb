@@ -102,21 +102,21 @@ default['magento']['x_frame_options'] = 'SAMEORIGIN'
 
 default['magento']['mage_mode'] = 'production'
 
-default['magento']['cache_types'] = %w(
-    config
-    layout
-    block_html
-    collections
-    reflection
-    db_ddl
-    eav
-    customer_notification
-    full_page
-    config_integration
-    config_integration_api
-    translate
-    config_webservice
-)
+default['magento']['cache_types'] = {
+    "config" => 1,
+    "layout" => 1,
+    "block_html" => 1,
+    "collections" => 1,
+    "reflection" => 1,
+    "db_ddl" => 1,
+    "eav" => 1,
+    "customer_notification" => 1,
+    "full_page" => 1,
+    "config_integration" => 1,
+    "config_integration_api" => 1,
+    "translate" => 1,
+    "config_webservice" => 1
+}
 
 default['magento']['composer']['merge']['version']     = 'v1.3.1'
 default['magento']['composer']['merge']['recurse']     = false
