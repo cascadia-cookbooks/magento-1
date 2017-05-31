@@ -102,7 +102,7 @@ default['magento']['x_frame_options'] = 'SAMEORIGIN'
 
 default['magento']['mage_mode'] = 'production'
 
-default['magento']['default_cache_types'] = %w(
+default['magento']['cache_types'] = %w(
     config
     layout
     block_html
@@ -117,8 +117,6 @@ default['magento']['default_cache_types'] = %w(
     translate
     config_webservice
 )
-
-default['magento']['additional_cache_types'] = %w()
 
 default['magento']['composer']['merge']['version']     = 'v1.3.1'
 default['magento']['composer']['merge']['recurse']     = false
