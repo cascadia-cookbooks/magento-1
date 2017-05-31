@@ -16,11 +16,9 @@ default['magento']['cli_user']['group'] = 'cli'
 default['magento']['www_user']['name']  = 'www-data'
 default['magento']['www_user']['group'] = 'www-data'
 
-# Additional directories and files
-default['magento']['directories'] = {}
-default['magento']['files']       = {}
-
 default['magento']['update_permissions'] = true
+
+default['magento']['directory']['permissions'] = 0775
 
 # Installation Parameters
 default['magento']['installation']['admin_first']       = 'Admin'

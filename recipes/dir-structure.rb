@@ -14,6 +14,8 @@ cli_group          = node['magento']['cli_user']['group']
 www_user           = node['magento']['www_user']['name']
 www_group          = node['magento']['www_user']['group']
 
+dir_permissions    = node['magento']['directory']['permissions']
+
 dirs = %w(
     releases
     releases/primary
@@ -33,11 +35,22 @@ dirs = %w(
     shared/var
 )
 
+vagrant_dirs = %w(
+    /vagrant
+    /vagrant/magento
+    /vagrant/magento/app
+    /vagrant/magento/app/etc
+    /vagrant/magento/var
+    /vagrant/magento/var/session
+    /vagrant/magento/vendor
+)
+
+
 # Create structure for default domain
 directory docroot do
     owner     cli_user
     group     www_group
-    mode      0755
+    mode      dir_permissions
     recursive true
     action    :create
 end
@@ -46,7 +59,7 @@ dirs.each do |dir|
     directory "#{docroot}/#{dir}" do
         owner     cli_user
         group     www_group
-        mode      0755
+        mode      dir_permissions
         recursive true
         action    :create
     end
@@ -57,7 +70,7 @@ additional_domains.each do |domain|
     directory "/var/www/#{domain}" do
         owner     cli_user
         group     www_group
-        mode      0755
+        mode      dir_permissions
         recursive true
         action    :create
     end
@@ -66,7 +79,19 @@ additional_domains.each do |domain|
         directory "/var/www/#{domain}/#{dir}" do
             owner     cli_user
             group     www_group
-            mode      0755
+            mode      dir_permissions
+            recursive true
+            action    :create
+        end
+    end
+end
+
+if node.chef_environment == "development"
+    vagrant_dirs.each do |dir|
+        directory dir do
+            owner     'vagrant'
+            group     'vagrant'
+            mode      0775
             recursive true
             action    :create
         end
