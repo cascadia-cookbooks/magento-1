@@ -6,6 +6,7 @@
 .*.sw[a-z]
 *.un~
 .DS_Store
+.idea/
 
 # Vagrant
 .vagrant/
