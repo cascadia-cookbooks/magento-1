@@ -102,20 +102,21 @@ default['magento']['x_frame_options'] = 'SAMEORIGIN'
 
 default['magento']['mage_mode'] = 'production'
 
-default['magento']['cache_types']['config']                 = 1
-default['magento']['cache_types']['layout']                 = 1
-default['magento']['cache_types']['block_html']             = 1
-default['magento']['cache_types']['collections']            = 1
-default['magento']['cache_types']['reflection']             = 1
-default['magento']['cache_types']['db_ddl']                 = 1
-default['magento']['cache_types']['eav']                    = 1
-default['magento']['cache_types']['customer_notification']  = 1
-default['magento']['cache_types']['full_page']              = 1
-default['magento']['cache_types']['config_integration']     = 1
-default['magento']['cache_types']['config_integration_api'] = 1
-default['magento']['cache_types']['translate']              = 1
-default['magento']['cache_types']['config_webservice']      = 1
-
+default['magento']['cache_types'] = {
+    "config" => 1,
+    "layout" => 1,
+    "block_html" => 1,
+    "collections" => 1,
+    "reflection" => 1,
+    "db_ddl" => 1,
+    "eav" => 1,
+    "customer_notification" => 1,
+    "full_page" => 1,
+    "config_integration" => 1,
+    "config_integration_api" => 1,
+    "translate" => 1,
+    "config_webservice" => 1
+}
 
 default['magento']['composer']['merge']['version']     = 'v1.3.1'
 default['magento']['composer']['merge']['recurse']     = false
