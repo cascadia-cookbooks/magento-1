@@ -7,7 +7,7 @@
 
 ## Attributes
 
-* `node['magento']['version']` (string) defaults to 2.1.4
+* `node['magento']['version']` (string) defaults to 2.1.7
 * `node['magento']['edition']` (string) 'Community' or 'Enterprise', defaults to 'Community'
 * `node['magento']['composer_project']` (string) defaults to 'magento/product-community-edition', should match `node['magento']['edition']`
 
