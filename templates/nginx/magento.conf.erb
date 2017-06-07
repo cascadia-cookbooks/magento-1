@@ -1,0 +1,15 @@
+map $http_host$request_uri $MAGE_RUN_CODE {
+    ~\.ca/fr fr_ca;
+    ~\.ca/en en_ca;
+    ~\.ca en_ca;
+    ~\.com en_us;
+}
+
+map $request_uri $mod_request {
+    default $request_uri;
+    ~^/(en|fr)(.*) $2;
+}
+
+map $request_uri $MAGE_RUN_TYPE {
+    default store;
+}
