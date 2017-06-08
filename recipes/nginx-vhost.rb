@@ -22,7 +22,7 @@ end
 
 # magento RUN variables
 template 'magento variables for nginx' do
-    path   '/etc/nginx/conf.d/magento.conf'
+    path   "#{node['nginx']['vhost_dir']}/magento.conf"
     source 'nginx/magento.conf.erb'
     owner  'root'
     group  'root'
