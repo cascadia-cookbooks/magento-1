@@ -1,0 +1,121 @@
+# NOTE: redirects /en to /en/
+location ~ ^/(en|fr)$ {
+    rewrite ^(.*)$ $1/ permanent;
+}
+
+# NOTE: turns /en/* into /* before passing to FPM
+location ~ ^/(en|fr)/ {
+    rewrite ^/(en|fr)(.*)$ $2 last;
+}
+
+index     index.php;
+autoindex off;
+charset   UTF-8;
+
+error_page 404 403 = /errors/404.php;
+
+location / {
+    try_files $uri $uri/ /index.php$is_args$args;
+}
+
+location /pub/ {
+    location ~ ^/pub/media/(downloadable|customer|import|theme_customization/.*\.xml) {
+        deny all;
+    }
+    alias $MAGE_ROOT/pub/;
+    add_header X-Frame-Options "SAMEORIGIN";
+}
+
+location /static/ {
+
+    # Remove signature of the static files that is used to overcome the browser cache
+    location ~ ^/static/version {
+        rewrite ^/static/(version\d*/)?(.*)$ /static/$2 last;
+    }
+
+    location ~* \.(ico|jpg|jpeg|png|gif|svg|js|css|swf|eot|ttf|otf|woff|woff2)$ {
+        add_header Cache-Control   "public";
+        add_header X-Frame-Options "SAMEORIGIN";
+        expires +1y;
+
+        if (!-f $request_filename) {
+            rewrite ^/static/(version\d*/)?(.*)$ /static.php?resource=$2 last;
+        }
+    }
+    location ~* \.(zip|gz|gzip|bz2|csv|xml)$ {
+        add_header Cache-Control   "no-store";
+        add_header X-Frame-Options "SAMEORIGIN";
+        expires    off;
+
+        if (!-f $request_filename) {
+           rewrite ^/static/(version\d*/)?(.*)$ /static.php?resource=$2 last;
+        }
+    }
+    if (!-f $request_filename) {
+        rewrite ^/static/(version\d*/)?(.*)$ /static.php?resource=$2 last;
+    }
+    add_header X-Frame-Options "SAMEORIGIN";
+}
+
+location /media/ {
+    try_files $uri $uri/ /get.php$is_args$args;
+
+    location ~ ^/media/theme_customization/.*\.xml {
+        deny all;
+    }
+
+    location ~* \.(ico|jpg|jpeg|png|gif|svg|js|css|swf|eot|ttf|otf|woff|woff2)$ {
+        add_header Cache-Control   "public";
+        add_header X-Frame-Options "SAMEORIGIN";
+        expires +1y;
+        try_files $uri $uri/ /get.php$is_args$args;
+    }
+    location ~* \.(zip|gz|gzip|bz2|csv|xml)$ {
+        add_header Cache-Control   "no-store";
+        add_header X-Frame-Options "SAMEORIGIN";
+        expires    off;
+        try_files $uri $uri/ /get.php$is_args$args;
+    }
+    add_header X-Frame-Options "SAMEORIGIN";
+}
+
+location /media/customer/ {
+    deny all;
+}
+
+location /media/downloadable/ {
+    deny all;
+}
+
+location /media/import/ {
+    deny all;
+}
+
+# PHP entry point for main application
+location ~ (index|phpinfo|get|static|report|404|503)\.php$ {
+    try_files $uri =404;
+    fastcgi_pass <%= @fpm_location %>;
+
+    # NOTE: this needs to be included before we set further params due to
+    #       FPM load priority, which is whatever is set last
+    include fastcgi_params;
+
+    # https://newrelic.com/docs/features/request-queuing-and-tracking-front-end-time
+    fastcgi_param X-Request-Start "t=${msec}000";
+
+    fastcgi_param MAGE_RUN_CODE   $MAGE_RUN_CODE;
+    fastcgi_param MAGE_RUN_TYPE   $MAGE_RUN_TYPE;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_param REQUEST_URI     $mod_request;
+    fastcgi_param HTTPS           on;
+
+    fastcgi_buffers         1024 4k;
+    fastcgi_read_timeout    60s;
+    fastcgi_connect_timeout 60s;
+    fastcgi_index           index.php;
+}
+
+# Banned locations (only reached if the earlier PHP entry point regexes don't match)
+location ~* (\.php$|\.htaccess$|\.git) {
+    deny all;
+}
