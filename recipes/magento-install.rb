@@ -5,6 +5,7 @@
 
 docroot                 = node['magento']['docroot']
 magento_path            = node['magento']['installation_path']
+release_path            = node['magento']['release']
 magento_bin             = "#{magento_path}/bin/magento"
 magento_composer_home   = "#{magento_path}/var/composer_home"
 
@@ -88,7 +89,7 @@ end
 
 link "Symlink docroot" do
     target_file "#{docroot}/current"
-    to          magento_path
+    to          release_path
     owner       cli_user
     group       www_group
    action       :nothing
