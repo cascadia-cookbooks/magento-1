@@ -9,6 +9,7 @@ default['magento']['additional_domains'] = {}
 # Docroot
 default['magento']['docroot']           = "/var/www/#{node['magento']['domain']}"
 default['magento']['installation_path'] = "#{node['magento']['docroot']}/releases/primary/magento"
+default['magento']['release']           = "#{node['magento']['docroot']}/releases/primary"
 
 # Users and groups
 default['magento']['cli_user']['name']  = 'mage-cli'
