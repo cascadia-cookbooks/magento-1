@@ -108,10 +108,9 @@ location ~ (index|phpinfo|get|static|report|404|503)\.php$ {
     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     fastcgi_param REQUEST_URI     $mod_request;
     fastcgi_param HTTPS           on;
-
     fastcgi_buffers         1024 4k;
-    fastcgi_read_timeout    60s;
-    fastcgi_connect_timeout 60s;
+    fastcgi_read_timeout    <%= @fastcgi_read_timeout %>;
+    fastcgi_connect_timeout <%= @fastcgi_connect_timeout %>;
     fastcgi_index           index.php;
 }
 
