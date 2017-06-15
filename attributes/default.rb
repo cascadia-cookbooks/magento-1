@@ -119,19 +119,6 @@ default['magento']['cache_types'] = {
     "config_webservice" => 1
 }
 
-default['magento']['composer']['merge']['version']     = 'v1.3.1'
-default['magento']['composer']['merge']['recurse']     = false
-default['magento']['composer']['merge']['replace']     = true
-default['magento']['composer']['merge']['merge_dev']   = true
-default['magento']['composer']['merge']['merge_extra'] = true
-
-default['magento']['composer']['repositories']['repo.magento.com']['username'] = ''
-default['magento']['composer']['repositories']['repo.magento.com']['password'] = ''
-default['magento']['composer']['repositories']['copious_repos']['token']       = ''
-
-# Override cop_composer
-default['composer']['binary']['path'] = '/usr/local/bin/composer'
-
 # n98-magerun2 attributes
 default['magento']['n98']['enabled']  = true
 default['magento']['n98']['version']  = '1.4.0'
