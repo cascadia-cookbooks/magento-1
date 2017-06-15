@@ -15,7 +15,9 @@ template 'magento config for nginx' do
     mode   0755
     action :create
     variables(
-        :fpm_location => "unix:#{fpm_location}"
+        fpm_location: "unix:#{fpm_location}",
+        fastcgi_read_timeout: node['magento']['nginx']['fastcgi_read_timeout'],
+        fastcgi_connect_timeout: node['magento']['nginx']['fastcgi_connect_timeout'],
     )
     notifies :reload, 'service[nginx]', :immediately
 end
