@@ -1,7 +1,10 @@
-default['magento']['composer'] = {
+default['composer'] = {
     binary: {
         path: '/usr/local/bin/composer'
-    },
+    }
+}
+
+default['magento']['composer'] = {
     description: 'eCommerce Platform for Growth (Enterprise Edition)',
     merge: {
         version: 'v1.3.1',
