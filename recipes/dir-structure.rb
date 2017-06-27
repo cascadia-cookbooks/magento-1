@@ -18,13 +18,6 @@ dir_permissions    = node['magento']['directory']['permissions']
 
 dirs = %w(
     releases
-    releases/primary
-    releases/primary/magento
-    releases/primary/magento/app
-    releases/primary/magento/app/etc
-    releases/primary/magento/var
-    releases/primary/magento/var/session
-    releases/primary/magento/vendor
     shared
     shared/app
     shared/app/etc
@@ -34,6 +27,19 @@ dirs = %w(
     shared/pub/media
     shared/var
 )
+
+# If the `full-install` recipe is in the run_list, add to the directory structure
+if node.recipe?('cop_magento::full-install')
+    dirs += %w(
+        releases/primary
+        releases/primary/magento
+        releases/primary/magento/app
+        releases/primary/magento/app/etc
+        releases/primary/magento/var
+        releases/primary/magento/var/session
+        releases/primary/magento/vendor
+    )
+end
 
 vagrant_dirs = %w(
     /vagrant
