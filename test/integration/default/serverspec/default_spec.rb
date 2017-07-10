@@ -24,6 +24,13 @@ describe 'magento::robots' do
         it { should be_grouped_into 'www-data' }
         it { should be_mode 644 }
     end
+
+    describe file('/var/www/example.com/current/magento/pub/robots.txt') do
+        it { should exist }
+        it { should be_symlink }
+        it { should be_owned_by 'mage-cli' }
+        it { should be_grouped_into 'www-data' }
+    end
 end
 
 describe 'magento::composer-prep' do
