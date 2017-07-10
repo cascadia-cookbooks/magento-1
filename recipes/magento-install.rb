@@ -142,6 +142,13 @@ link "#{magento_path}/app/etc/env.php" do
     group www_group
 end
 
+# Link `robots.txt`
+link "#{magento_path}/pub/robots.txt" do
+    to    "#{docroot}/shared/pub/robots.txt"
+    owner cli_user
+    group www_group
+end
+
 execute 'Set Magento deploy mode' do
     command "#{magento_bin} -#{verbosity} deploy:mode:set #{node['magento']['mage_mode']} --skip-compilation"
     cwd     magento_path
