@@ -9,8 +9,10 @@ User-agent: <%= user_agent %>
 Disallow: <%= dir %>
         <% end -%>
     <% end -%>
+    <% if node['robots']['sitemaps'] -%>
+        <% node['robots']['sitemaps'].each do |name, sitemap| -%>
 
-    <% node['robots']['sitemaps'].each do |name, sitemap| -%>
 Sitemap: <%= sitemap %>
+        <% end -%>
     <% end -%>
 <% end -%>
