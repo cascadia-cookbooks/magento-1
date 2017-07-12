@@ -36,7 +36,13 @@ suites:
       - recipe[cop_magento::full-install]
     attributes:
       robots:
-        allow: false
+        allow: true
+        user_agents:
+          test-agent:
+            - 'path/to/file'
+            - 'var/www/*'
+        sitemaps:
+          example.com: 'http://www.example.com/sitemap.xml'
       magento:
         additional_domains:
           - "example.net"
