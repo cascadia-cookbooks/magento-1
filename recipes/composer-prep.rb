@@ -54,14 +54,17 @@ template 'Creating shared composer.json' do
 end
 
 # Generate Composer composer.json in installation directory
-template 'Creating installation composer.json' do
-    path    "#{magento_path}/composer.json"
-    source  'composer/composer.json.erb'
-    owner   cli_user
-    group   www_group
-    mode    0644
-    action  :create
-    backup  false
+# Only takes effect if 'full-install' recipe is used
+if node.recipe?('cop_magento::full-install')
+    template 'Creating installation composer.json' do
+        path    "#{magento_path}/composer.json"
+        source  'composer/composer.json.erb'
+        owner   cli_user
+        group   www_group
+        mode    0644
+        action  :create
+        backup  false
+    end
 end
 
 # Generate env.php
