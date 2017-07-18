@@ -10,7 +10,9 @@ Disallow: <%= dir %>
         <% end -%>
     <% end -%>
 
-    <% node['robots']['sitemaps'].each do |name, sitemap| -%>
+    <% if node['robots']['sitemaps'] -%>
+        <% node['robots']['sitemaps'].each do |name, sitemap| -%>
 Sitemap: <%= sitemap %>
+        <% end -%>
     <% end -%>
 <% end -%>
