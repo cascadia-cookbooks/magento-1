@@ -12,7 +12,7 @@ template 'magento config for nginx' do
     source 'nginx/magento.erb'
     owner  'root'
     group  'root'
-    mode   0755
+    mode   0644
     action :create
     variables(
         fpm_location: "unix:#{fpm_location}",
@@ -28,7 +28,7 @@ template 'magento variables for nginx' do
     source 'nginx/magento.conf.erb'
     owner  'root'
     group  'root'
-    mode   0755
+    mode   0644
     action :create
     notifies :reload, 'service[nginx]', :immediately
 end
