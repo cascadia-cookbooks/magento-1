@@ -32,6 +32,7 @@ suites:
       - recipe[cop_mysql::install_client]
       - recipe[cop_mysql::install_server]
       - recipe[cop_redis]
+      - recipe[cop_varnish]
       - recipe[cop_composer::install]
       - recipe[cop_magento::full-install]
     attributes:
