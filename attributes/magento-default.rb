@@ -119,6 +119,12 @@ default['magento']['cache_types'] = {
     "config_webservice" => 1
 }
 
+if node.recipe?('cop_varnish::default')
+    default['magento']['varnish']['enabled'] = true
+else
+    default['magento']['varnish']['enabled'] = false
+end
+
 # n98-magerun2 attributes
 default['magento']['n98']['enabled']  = true
 default['magento']['n98']['version']  = '1.4.0'
