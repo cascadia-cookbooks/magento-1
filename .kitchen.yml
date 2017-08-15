@@ -25,6 +25,7 @@ suites:
     encrypted_data_bag_secret_key_path: "test/integration/data_bag_encrypted_secret_key"
     run_list:
       - recipe[cop_base]
+      - recipe[cop_cron]
       - recipe[cop_users]
       - recipe[cop_nginx]
       - recipe[cop_php]
