@@ -19,7 +19,7 @@ template 'magento config for nginx' do
         fastcgi_read_timeout: node['magento']['nginx']['fastcgi_read_timeout'],
         fastcgi_connect_timeout: node['magento']['nginx']['fastcgi_connect_timeout'],
     )
-    notifies :reload, 'service[nginx]', :immediately
+    notifies :reload, 'service[nginx]'
 end
 
 # magento RUN variables
@@ -30,5 +30,5 @@ template 'magento variables for nginx' do
     group  'root'
     mode   0644
     action :create
-    notifies :reload, 'service[nginx]', :immediately
+    notifies :reload, 'service[nginx]'
 end
