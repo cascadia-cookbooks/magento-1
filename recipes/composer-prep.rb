@@ -12,6 +12,8 @@ www_group    = node['magento']['www_user']['group']
 docroot      = node['magento']['docroot']
 magento_path = node['magento']['installation_path']
 
+additional_domains = node['magento']['additional_domains']
+
 # Create directory for cli_user Composer auth.json
 directory "/home/#{cli_user}/.composer" do
     owner   cli_user
@@ -65,15 +67,4 @@ if node.recipe?('cop_magento::full-install')
         action  :create
         backup  false
     end
-end
-
-# Generate env.php
-template 'Install env.php' do
-    path    "#{docroot}/shared/app/etc/env.php"
-    source  'magento/env.php.erb'
-    owner   cli_user
-    group   www_group
-    mode    0644
-    action  :create
-    backup  false
 end
