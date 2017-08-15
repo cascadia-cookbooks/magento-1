@@ -151,7 +151,7 @@ end
 
 # Disable crond and terminate bin/magento cron jobs to prevent conflict
 execute 'Disable cron daemon' do
-    command  'systemctl stop crond'
+    command  "systemctl stop #{node['cron']['service']}"
     user     'root'
 end
 
@@ -192,6 +192,6 @@ execute 'Magento setup:upgrade' do
 end
 
 execute 'Start cron daemon' do
-    command 'systemctl start crond'
+    command "systemctl start #{node['cron']['service']}"
     user    'root'
 end
