@@ -12,8 +12,6 @@ www_group    = node['magento']['www_user']['group']
 docroot      = node['magento']['docroot']
 magento_path = node['magento']['installation_path']
 
-additional_domains = node['magento']['additional_domains']
-
 # Create directory for cli_user Composer auth.json
 directory "/home/#{cli_user}/.composer" do
     owner   cli_user
