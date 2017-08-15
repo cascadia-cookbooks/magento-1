@@ -149,6 +149,18 @@ link "#{magento_path}/pub/robots.txt" do
     group www_group
 end
 
+# Disable crond and terminate bin/magento cron jobs to prevent conflict
+execute 'Disable cron daemon' do
+    command  'systemctl stop crond'
+    user     'root'
+end
+
+execute 'Kill bin/magento cron jobs' do
+    command "pkill -f 'bin/magento cron'"
+    returns [0,1] # `pkill` returns `1` if pattern is unmatched
+    user    'root'
+end
+
 execute 'Set Magento deploy mode' do
     command "#{magento_bin} -#{verbosity} deploy:mode:set #{node['magento']['mage_mode']} --skip-compilation"
     cwd     magento_path
@@ -177,4 +189,9 @@ execute 'Magento setup:upgrade' do
     cwd     magento_path
     user    cli_user
     group   www_group
+end
+
+execute 'Start cron daemon' do
+    command 'systemctl start crond'
+    user    'root'
 end
