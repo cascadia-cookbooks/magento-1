@@ -10,7 +10,6 @@ www_user           = node['magento']['www_user']['name']
 www_group          = node['magento']['www_user']['group']
 
 docroot            = node['magento']['docroot']
-additional_domains = node['magento']['additional_domains']
 
 # Generate env.php
 template 'Install env.php' do
@@ -23,7 +22,7 @@ template 'Install env.php' do
     backup  false
 end
 
-additional_domains.each do |domain|
+node['magento']['additional_domains'].each do |domain|
     template 'Install env.php' do
         path    "/var/www/#{domain}/shared/app/etc/env.php"
         source  'magento/env.php.erb'
