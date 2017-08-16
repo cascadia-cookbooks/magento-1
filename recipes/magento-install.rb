@@ -48,6 +48,13 @@ if node['magento']['installation']['sample_data']
     magento_install_flags = "--use-sample-data #{magento_install_flags}"
 end
 
+# Check for app/etc/env.php, exit recipe if present
+# NOTE: This has historically acted as our check to see whether the Magento
+# installation process has occured or not; this deserves to be reevaluated
+if ::File.exist?("#{magento_path}/app/etc/env.php")
+    return
+end
+
 # Run composer install
 execute 'Composer installing' do
     command     "composer install -#{verbosity} #{composer_install_flags}"
@@ -58,15 +65,6 @@ execute 'Composer installing' do
         'COMPOSER_HOME'      => composer_home,
         'COMPOSER_CACHE_DIR' => "#{composer_home}/cache"
     })
-    not_if      { ::File.exist?("#{magento_path}/app/etc/env.php") }
-    notifies    :run, 'execute[Change directory permissions]', :immediately
-    notifies    :run, 'execute[Change file permissions]', :immediately
-    notifies    :create, "link[Symlink docroot]", :immediately
-    notifies    :run, 'execute[Update magento bin permissions]', :immediately
-    notifies    :run, 'execute[Install sample data if desired]', :immediately
-    notifies    :run, 'execute[Update composer if sample data]', :immediately
-    notifies    :run, 'execute[Magento setup]', :immediately
-    notifies    :run, 'execute[Remove sample files]', :delayed
 end
 
 execute 'Change directory permissions' do
@@ -74,7 +72,6 @@ execute 'Change directory permissions' do
     cwd     magento_path
     user    cli_user
     group   www_group
-    action  :nothing
     only_if { node['magento']['update_permissions'] }
 end
 
@@ -83,7 +80,6 @@ execute 'Change file permissions' do
     cwd     magento_path
     user    cli_user
     group   www_group
-    action  :nothing
     only_if { node['magento']['update_permissions'] }
 end
 
@@ -92,19 +88,16 @@ link "Symlink docroot" do
     to          release_path
     owner       cli_user
     group       www_group
-   action       :nothing
 end
 #
 execute 'Update magento bin permissions' do
     command "chmod 775 #{magento_bin}"
-    action  :nothing
     only_if { node['magento']['update_permissions'] }
 end
 #
 execute 'Install sample data if desired' do
     command "#{magento_bin} sampledata:deploy"
     user    cli_user
-    action  :nothing
     only_if { node['magento']['installation']['sample_data'] }
 end
 
@@ -116,22 +109,19 @@ execute 'Update composer if sample data' do
         'COMPOSER_HOME'      => composer_home,
         'COMPOSER_CACHE_DIR' => "#{composer_home}/cache"
     })
-    action      :nothing
     only_if     { node['magento']['installation']['sample_data'] }
 end
 
-execute 'Magento setup' do
+execute 'Magento setup:install' do
     command "#{magento_bin} setup:install #{magento_install_flags} --no-ansi"
     user    cli_user
     group   www_group
     cwd     magento_path
-    action  :nothing
 end
 
 execute 'Remove sample files' do
     command 'rm -rf *.sample'
     cwd     magento_path
-    action  :nothing
     not_if  'find -type f -name *.sample'
 end
 
@@ -147,6 +137,18 @@ link "#{magento_path}/pub/robots.txt" do
     to    "#{docroot}/shared/pub/robots.txt"
     owner cli_user
     group www_group
+end
+
+# Stop 'cron' service
+service node['cron']['service'] do
+    action :stop
+end
+
+# Kill any bin/magento cron jobs
+execute 'Kill bin/magento cron jobs' do
+    command "pkill -f 'bin/magento cron'"
+    returns [0,1] # `pkill` returns `1` if pattern is unmatched
+    user    'root'
 end
 
 execute 'Set Magento deploy mode' do
@@ -177,4 +179,9 @@ execute 'Magento setup:upgrade' do
     cwd     magento_path
     user    cli_user
     group   www_group
+end
+
+# Start 'cron' service
+service node['cron']['service'] do
+    action :start
 end

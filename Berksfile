@@ -4,6 +4,7 @@ cookbook 'cop_magento', path: '.'
 
 cookbook 'cop_base',     tag: '0.0.12', github: 'copious-cookbooks/base'
 cookbook 'cop_composer', tag: '0.0.1',  github: 'copious-cookbooks/composer'
+cookbook 'cop_cron',     github: 'copious-cookbooks/cron'
 cookbook 'cop_mysql',    tag: '0.7.4',  github: 'copious-cookbooks/mysql'
 cookbook 'cop_nginx',    tag: '0.4.8',  github: 'copious-cookbooks/nginx'
 cookbook 'cop_ntp',      tag: '2.0.2',  github: 'copious-cookbooks/ntp'

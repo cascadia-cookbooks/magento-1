@@ -66,14 +66,3 @@ if node.recipe?('cop_magento::full-install')
         backup  false
     end
 end
-
-# Generate env.php
-template 'Install env.php' do
-    path    "#{docroot}/shared/app/etc/env.php"
-    source  'magento/env.php.erb'
-    owner   cli_user
-    group   www_group
-    mode    0644
-    action  :create
-    backup  false
-end
