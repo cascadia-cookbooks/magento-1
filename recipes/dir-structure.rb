@@ -23,8 +23,9 @@ dirs = %w(
     shared/app/etc
     shared/composer
     shared/pub
-    shared/pub/static
     shared/pub/media
+    shared/pub/sitemaps
+    shared/pub/static
     shared/var
 )
 
