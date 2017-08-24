@@ -58,7 +58,7 @@ end
 
 # Run composer install
 execute 'Composer installing' do
-    command     "#{composer_binary_path} -#{verbosity} #{composer_install_flags}"
+    command     "#{composer_binary_path} install -#{verbosity} #{composer_install_flags}"
     cwd         magento_path
     user        cli_user
     group       www_group
