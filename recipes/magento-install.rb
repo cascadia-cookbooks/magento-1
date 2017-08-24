@@ -16,6 +16,7 @@ www_user                = node['magento']['www_user']['name']
 www_group               = node['magento']['www_user']['group']
 
 composer_home           = "/home/#{cli_user}/.composer"
+composer_binary_path    = node['composer']['binary']['path']
 
 verbosity               = node['magento']['installation']['verbosity']
 
@@ -57,7 +58,7 @@ end
 
 # Run composer install
 execute 'Composer installing' do
-    command     "composer install -#{verbosity} #{composer_install_flags}"
+    command     "#{composer_binary_path} -#{verbosity} #{composer_install_flags}"
     cwd         magento_path
     user        cli_user
     group       www_group
