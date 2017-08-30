@@ -12,6 +12,8 @@ www_group    = node['magento']['www_user']['group']
 docroot      = node['magento']['docroot']
 magento_path = node['magento']['installation_path']
 
+magento_composer_path = node['magento']['composer']['path']
+
 # Create directory for cli_user Composer auth.json
 directory "/home/#{cli_user}/.composer" do
     owner   cli_user
@@ -57,7 +59,7 @@ end
 # Only takes effect if 'full-install' recipe is used
 if node.recipe?('cop_magento::full-install')
     template 'Creating installation composer.json' do
-        path    "#{magento_path}/composer.json"
+        path    "#{magento_composer_path}/composer.json"
         source  'composer/composer.json.erb'
         owner   cli_user
         group   www_group
