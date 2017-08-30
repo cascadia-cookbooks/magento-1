@@ -1,5 +1,6 @@
 default['magento']['composer'] = {
     description: 'eCommerce Platform for Growth (Enterprise Edition)',
+    path: node['magento']['installation_path'],
     merge: {
         version: 'v1.3.1',
         recurse: false,
