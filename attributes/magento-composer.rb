@@ -1,4 +1,5 @@
 default['magento']['composer'] = {
+    generate_json: true,
     description: 'eCommerce Platform for Growth (Enterprise Edition)',
     path: node['magento']['installation_path'],
     file: 'composer.json',
