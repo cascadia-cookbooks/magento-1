@@ -8,6 +8,7 @@ magento_path            = node['magento']['installation_path']
 release_path            = node['magento']['release']
 magento_bin             = "#{magento_path}/bin/magento"
 magento_composer_home   = "#{magento_path}/var/composer_home"
+magento_composer_path   = node['magento']['composer']['path']
 
 cli_user                = node['magento']['cli_user']['name']
 cli_group               = node['magento']['cli_user']['group']
@@ -59,12 +60,13 @@ end
 # Run composer install
 execute 'Composer installing' do
     command     "#{composer_binary_path} install -#{verbosity} #{composer_install_flags}"
-    cwd         magento_path
+    cwd         magento_composer_path
     user        cli_user
     group       www_group
     environment ({
         'COMPOSER_HOME'      => composer_home,
-        'COMPOSER_CACHE_DIR' => "#{composer_home}/cache"
+        'COMPOSER_CACHE_DIR' => "#{composer_home}/cache",
+        'COMPOSER_VENDOR_DIR' => "#{magento_path}/vendor"
     })
 end
 
