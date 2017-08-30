@@ -65,5 +65,5 @@ template 'Creating installation composer.json' do
     mode    0644
     action  :create
     backup  false
-    not_if node['magento']['composer']['generate_json']
+    only_if node['magento']['composer']['generate_json']
 end
