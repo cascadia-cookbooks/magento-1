@@ -54,7 +54,7 @@
         "magento-deploystrategy": "copy",
         "merge-plugin": {
             "include": [
-                "../src/composer.json"
+                "./composer.json"
             ],
             "recurse": <%= node['magento']['composer']['merge']['recurse'] %>,
             "replace": <%= node['magento']['composer']['merge']['replace'] %>,
