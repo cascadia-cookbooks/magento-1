@@ -57,13 +57,13 @@ end
 
 # Generate Composer composer.json in installation directory
 # Only takes effect if 'magento::composer::generate_json' is true
-template 'Creating installation composer.json' do
-    path    "#{magento_composer_path}/composer.json"
-    source  'composer/composer.json.erb'
-    owner   cli_user
-    group   www_group
-    mode    0644
-    action  :create
-    backup  false
-    only_if node['magento']['composer']['generate_json']
-end
+#template 'Creating installation composer.json' do
+#    path    "#{magento_composer_path}/composer.json"
+#    source  'composer/composer.json.erb'
+#    owner   cli_user
+#    group   www_group
+#    mode    0644
+#    action  :create
+#    backup  false
+#    only_if node['magento']['composer']['generate_json']
+#end
