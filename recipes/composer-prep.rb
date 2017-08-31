@@ -44,17 +44,6 @@ template 'Installing Magento Composer auth.json' do
     backup  false
 end
 
-# Generate Composer composer.json in shared directory
-template 'Creating shared composer.json' do
-    path    "#{docroot}/shared/composer/composer.json"
-    source  'composer/composer.json.erb'
-    owner   www_user
-    group   www_group
-    mode    0644
-    action  :create
-    backup  false
-end
-
 # Generate Composer composer.json in installation directory
 # Only takes effect if 'magento::composer::generate_json' is true
 #template 'Creating installation composer.json' do

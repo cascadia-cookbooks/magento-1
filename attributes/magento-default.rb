@@ -35,7 +35,7 @@ default['magento']['installation']['crypt_key']         = ''
 default['magento']['installation']['date']              = Time.now.strftime("%a, %d %B %Y %H:%M:%S +0000")
 default['magento']['installation']['sample_data']       = false
 
-default['magento']['installation']['verbosity']         = 'vvv'
+default['magento']['installation']['verbosity']         = ''
 
 # Session
 default['magento']['session']['save']                           = 'redis'

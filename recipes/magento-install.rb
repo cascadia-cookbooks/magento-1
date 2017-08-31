@@ -20,11 +20,15 @@ www_group               = node['magento']['www_user']['group']
 composer_home           = "/home/#{cli_user}/.composer"
 composer_binary_path    = node['composer']['binary']['path']
 
-verbosity               = node['magento']['installation']['verbosity']
+if node['magento']['installation']['verbosity'] != ''
+    verbosity = "-#{node['magento']['installation']['verbosity']}"
+else
+    verbosity = '';
+end
 
 # Composer installation flags
 composer_base_flags     = '--no-interaction --no-ansi'
-composer_pref_flags     = '--no-suggest --prefer-dist'
+composer_pref_flags     = '--no-suggest'
 composer_include_dev    = node.environment != 'development' ? '--no-dev' : ''
 composer_install_flags  = "#{composer_base_flags} #{composer_pref_flags} #{composer_include_dev}"
 composer_update_flags   = "#{composer_base_flags} #{composer_pref_flags} --lock #{composer_include_dev}"
@@ -60,7 +64,7 @@ end
 
 # Run composer install
 execute 'Composer installing' do
-    command     "#{composer_binary_path} install -#{verbosity} #{composer_install_flags}"
+    command     "#{composer_binary_path} install #{verbosity} #{composer_install_flags}"
     cwd         magento_composer_path
     user        cli_user
     group       www_group
@@ -94,12 +98,19 @@ link "Symlink docroot" do
     owner       cli_user
     group       www_group
 end
-#
+
+link "Symlink composer.json" do
+    target_file "#{magento_path}/composer.json"
+    to          "#{node['magento']['composer']['path']}/composer.json"
+    owner       cli_user
+    group       www_group
+end
+
 execute 'Update magento bin permissions' do
     command "chmod 775 #{magento_bin}"
     only_if { node['magento']['update_permissions'] }
 end
-#
+
 execute 'Install sample data if desired' do
     command "#{magento_bin} sampledata:deploy"
     user    cli_user
@@ -157,14 +168,14 @@ execute 'Kill bin/magento cron jobs' do
 end
 
 execute 'Set Magento deploy mode' do
-    command "#{magento_bin} -#{verbosity} deploy:mode:set #{node['magento']['mage_mode']} --skip-compilation"
+    command "#{magento_bin} #{verbosity} deploy:mode:set #{node['magento']['mage_mode']} --skip-compilation"
     cwd     magento_path
     user    cli_user
     group   www_group
 end
 
 execute 'Magento di compile' do
-    command "#{magento_bin} -#{verbosity} setup:di:compile"
+    command "#{magento_bin} #{verbosity} setup:di:compile"
     cwd     magento_path
     user    cli_user
     group   www_group
@@ -172,7 +183,7 @@ execute 'Magento di compile' do
 end
 
 execute 'Magento static content deploy' do
-    command "#{magento_bin} -#{verbosity} setup:static-content:deploy"
+    command "#{magento_bin} #{verbosity} setup:static-content:deploy"
     cwd     magento_path
     user    cli_user
     group   www_group
@@ -180,7 +191,7 @@ execute 'Magento static content deploy' do
 end
 
 execute 'Magento setup:upgrade' do
-    command "#{magento_bin} -#{verbosity} setup:upgrade"
+    command "#{magento_bin} #{verbosity} setup:upgrade"
     cwd     magento_path
     user    cli_user
     group   www_group
