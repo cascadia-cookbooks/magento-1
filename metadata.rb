@@ -9,8 +9,8 @@ source_url          'https://github.com/copious-cookbooks/magento'
 issues_url          'https://github.com/copious-cookbooks/magento/issues'
 
 supports 'ubuntu', '>=14.04'
-supports 'rhel', '>= 7'
-supports 'centos', '>= 7'
+supports 'redhat', '>= 7.0'
+supports 'centos', '>= 7.0'
 
 depends 'cop_base'
 depends 'cop_composer'
